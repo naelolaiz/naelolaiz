@@ -1,5 +1,5 @@
 Tinkering with FPGAs, embedded systems, Linux, audio DSP, 3D printing.<br>
-Tools, experiments, learning projects. Side projects(of side projects(of side projects(...))</sub>)</sub>
+Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(of side projects<sub>(...)</sub>)</sub>)</sub>
 
 ---
 
