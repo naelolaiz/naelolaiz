@@ -5,13 +5,17 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 
 ### 🔬 [learning_fpga](https://github.com/naelolaiz/learning_fpga) — VHDL & Verilog tutorial
 
-> Progressive FPGA examples with CI-generated netlist diagrams and testbench waveforms.
+> Progressive FPGA examples (basics → building blocks → display → comm), each with paired VHDL + Verilog sources, assertion-driven testbenches, and CI-rendered netlists & waveforms.
 
-| Netlist (VHDL) | Simulation waveform |
+| `blink_led` netlist (VHDL) | `blink_led` netlist (Verilog) | `blink_led` waveform |
+|:-:|:-:|:-:|
+| ![blink_led netlist VHDL](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/blink_led.svg) | ![blink_led netlist Verilog](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/blink_led_v.svg) | ![blink_led waveform](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/tb_blink_led.png) |
+
+| `7segments_clock` top-level | `7segments_clock` alarm waveform |
 |:-:|:-:|
-| ![blink_led netlist](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/blink_led/blink_led.svg) | ![blink_led waveform](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/blink_led/tb_blink_led.png) |
+| ![7seg clock top-level](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/display-7segments-clock/top_level_7segments_clock.svg) | ![7seg clock alarm waveform](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/display-7segments-clock/tb_clock_alarm.png) |
 
-*Images auto-update on every `main` push via CI → [`ci-gallery`](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest)*
+*Images auto-update on every `main` push via CI → [`ci-gallery`](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest) branch (one folder per example, e.g. `basics-blink_led/`, `display-7segments-clock/`).*
 
 ---
 
