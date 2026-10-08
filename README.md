@@ -1,50 +1,73 @@
 Tinkering with FPGAs, embedded systems, Linux, audio DSP, 3D printing.<br>
 Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(of side projects<sub>(...)</sub>)</sub>)</sub>
 
----
+**Languages:** C / C++, Python, Shell, VHDL, Verilog<br>
+**Platforms & tools:** Linux, ESP32, RISC-V, GHDL, Yosys, Qt, Podman / Docker, GitHub Actions
 
-### 🔬 [learning_fpga](https://github.com/naelolaiz/learning_fpga) — VHDL & Verilog tutorial
+[Latest work](#latest-work) · [FPGA & developer tools](#fpga--developer-tools) · [Hardware experiments](#hardware-experiments) · [More projects](#more-projects)
 
-> Progressive FPGA examples (basics → building blocks → display → comm), each with paired VHDL + Verilog sources, assertion-driven testbenches, and CI-rendered netlists & waveforms.
+## Latest work
 
-| `blink_led` netlist (VHDL) | `blink_led` netlist (Verilog) | `blink_led` waveform |
-|:-:|:-:|:-:|
-| ![blink_led netlist VHDL](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/blink_led.svg) | ![blink_led netlist Verilog](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/blink_led_v.svg) | ![blink_led waveform](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/basics-blink_led/tb_blink_led.png) |
+### [Alpine Linux on ESP32-S31](https://github.com/naelolaiz/esp32s31-alpine)
 
-| `7segments_clock` top-level | `7segments_clock` alarm waveform |
-|:-:|:-:|
-| ![7seg clock top-level](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/display-7segments-clock/top_level_7segments_clock.svg) | ![7seg clock alarm waveform](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/display-7segments-clock/tb_clock_alarm.png) |
+Bringing Alpine Linux to the **ESP32-S31 Function-CoreBoard-1**, using Espressif's Linux BSP and a custom kernel configuration.
 
-*Images auto-update on every `main` push via CI → [`ci-gallery`](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest) branch (one folder per example, e.g. `basics-blink_led/`, `display-7segments-clock/`).*
+- **Working on hardware:** Linux 6.18 boots an ext4 root filesystem from USB, OpenRC starts a serial login, Ethernet gets an address through DHCP, and `apk` installs signed packages.
+- **Behind the boot:** documented BSP versions, kernel configuration fragments, a Buildroot overlay, and a dated journal of the bring-up. Pressing the reset button boots Alpine when the USB stick is present, with a Buildroot fallback when it is absent.
 
----
+[Source & setup](https://github.com/naelolaiz/esp32s31-alpine) · [Boot journal](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-boot-from-stick.md) · [Ethernet & package-install logs](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-network-apk.md)
 
-### 🤖 [luckfox_rockchip_testing](https://github.com/naelolaiz/luckfox_rockchip_testing) — RISC-V embedded Linux (RV1103/RV1106)
+### [Alpine Linux for 32-bit RISC-V](https://github.com/naelolaiz/alpine-riscv32)
 
-> Cross-compilation, PWM/UART testing, and two servo motors + a laser pointer drawing Lissajous curves.
+The distribution work behind the board bring-up: a compact **aports patch series**, cross toolchain and musl-based userspace for `rv32imac` / `ilp32` soft-float, kept independent of board-specific changes.
 
-| Lissajous laser projection |
-|:-:|
-| ![Lissajous laser](https://raw.githubusercontent.com/naelolaiz/luckfox_rockchip_testing/main/test_programs/pwm_two_servos/doc/lissajous.gif) |
+- **Bootstrap milestone:** cross-built Alpine's bootstrap package set, including `alpine-base`; boots to an OpenRC login in QEMU with working `apk` installs.
+- **Beyond cross-compilation:** native riscv32 package builds under qemu-user, including Nano and Dropbear, with SSH logins tested in the VM. GitHub Actions runs the cross and native package builds.
 
----
+[Patch series](https://github.com/naelolaiz/alpine-riscv32/tree/main/patches) · [Package status](https://github.com/naelolaiz/alpine-riscv32/blob/main/RISCV32.md) · [Build & boot guides](https://github.com/naelolaiz/alpine-riscv32/tree/main/docs/steps)
 
-### 📦 [3d_models](https://github.com/naelolaiz/3d_models) — OpenSCAD models with CI rendering
+### [ESP32-S31 support for PlatformIO](https://github.com/naelolaiz/platform-espressif32/tree/esp32s31-support)
 
-> Parametric cases, galvanometer mirror mounts, stackable boxes. STL + PNG auto-generated from `.scad` sources by CI.
+**Contribution branch:** board definition, RISC-V build integration and the correct bootloader flash offset for ESP32-S31. ESP-IDF **build, upload and boot have been tested on hardware**. Upstream integration is tracked separately.
 
-| Stepper galvanometer | DSP case |
-|:-:|:-:|
-| ![galvo](https://naelolaiz.github.io/3d_models/45_degree_angle_mirror_support.png) | ![DSP case](https://raw.githubusercontent.com/naelolaiz/3d_models/main/DSP_ADAU1701_case/pictures/bottom_case_v2.jpg) |
+[Implementation](https://github.com/naelolaiz/platform-espressif32/commit/87beab60446b1dffdcfec12d90676c715c5ca97f) · [Upstream discussion](https://github.com/platformio/platform-espressif32/issues/1777)
 
----
+## FPGA & developer tools
 
-### 🔊 [vamp_wavediff](https://github.com/naelolaiz/vamp_wavediff) — Audio A/B null-test tool
+### [learning_fpga — from digital logic to a RISC-V CPU](https://github.com/naelolaiz/learning_fpga)
 
-> Vamp plugin + Qt Quick UI for comparing two audio files: RMS, peak divergence, null-test per block. C++17 / Sonic Visualiser.
+A progressive collection of **paired VHDL and Verilog designs**, from clock enables, PWM and FIFOs to UART, I²C, displays and processor architecture.
 
----
+- **CPU design:** tutorial CPUs implementing an RV32I subset, in single-cycle and five-stage pipelined forms, with forwarding, load-use stalls and branch flushing.
+- **Hardware/software integration:** a small SoC with memory-mapped UART, SIMD and FIR accelerators, plus a Python assembler and executable test programs.
+- **Verification:** assertion-based testbenches and a shared container build for local development and CI, which publishes netlists and waveforms.
 
-### 🛠️ [hdltools](https://github.com/naelolaiz/hdltools) — HDL toolbox container
+[CPU & SoC walkthrough](https://github.com/naelolaiz/learning_fpga/tree/main/cpu) · [Timing notes](https://github.com/naelolaiz/learning_fpga/blob/main/docs/timing.md) · [Live CI gallery](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest)
 
-> Pinned container (GHDL + Yosys + ghdl-yosys-plugin + iverilog + GTKWave + netlistsvg) used by `learning_fpga` CI. Drop-in for reproducible HDL builds.
+[![UART receiver simulation showing serial input, decoded bytes and receive-valid pulses](https://raw.githubusercontent.com/naelolaiz/learning_fpga/ci-gallery/latest/comm-uart_rx/tb_uart_rx.png)](https://github.com/naelolaiz/learning_fpga/tree/main/comm/uart_rx)
+
+*UART receiver testbench output; regenerated by CI as the design changes.*
+
+### [hdltools — HDL toolchain & waveform rendering](https://github.com/naelolaiz/hdltools)
+
+A containerized VHDL, Verilog and SystemVerilog toolchain combining **GHDL, Yosys, Icarus Verilog, Verilator and slang**. Includes the **waveview** renderer, which turns VCD/FST/GHW traces into deterministic SVG/PNG diagrams without a desktop session, with configurable signal groups and time windows. Used by `learning_fpga` for simulation and CI artifacts.
+
+[Container & build targets](https://github.com/naelolaiz/hdltools) · [waveview documentation](https://github.com/naelolaiz/hdltools/tree/main/waveview)
+
+## Hardware experiments
+
+| [Embedded Linux & motion control](https://github.com/naelolaiz/luckfox_rockchip_testing) | [Parametric models for electronics](https://github.com/naelolaiz/3d_models) |
+| :--- | :--- |
+| Cross-compiled C++ GPIO/PWM applications and bench measurements of PWM and UART on **Arm-based Rockchip RV1103/RV1106** boards. [Two servos and a laser draw Lissajous curves](https://raw.githubusercontent.com/naelolaiz/luckfox_rockchip_testing/main/test_programs/pwm_two_servos/doc/lissajous.gif). | **OpenSCAD** enclosures, motor supports and mirror mounts. GitHub Actions generates STL files and PNG previews from the model sources. |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/luckfox_rockchip_testing/main/doc/testing_uart_tx.png" alt="UART transmission from Linux on a Luckfox board, captured with a logic analyzer" width="340">](https://github.com/naelolaiz/luckfox_rockchip_testing#uart) | [<img src="https://raw.githubusercontent.com/naelolaiz/3d_models/main/stepper_motors_galvo_support/doc/IMG20231224195128.png" alt="Assembled stepper-motor mirror mounts made from the OpenSCAD models" width="340">](https://github.com/naelolaiz/3d_models/tree/main/stepper_motors_galvo_support) |
+
+## More projects
+
+| Project | What it does | Stack |
+| :--- | :--- | :--- |
+| [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) | Audio A/B analysis: RMS, null-test residual and peak difference, through a Vamp plugin and Qt Quick interface. | C++17 · Qt Quick · CMake / CTest |
+| [Bluetooth instrument control](https://github.com/naelolaiz/JDY-31_PSG9080) | Python/Qt control of a PSG9080 signal generator, with logic-analyzer captures documenting the protocol. | Python · Qt · Bluetooth |
+| [ESP32-C3 DMX512 controller](https://github.com/naelolaiz/osc_to_dmx512) | Wi-Fi browser interface for controlling DMX512 output from an ESP32-C3. | C++ · PlatformIO |
+| [Gentoo binhost](https://github.com/naelolaiz/gentoo-binhost) | Automated binary-package builds, resumable CI runs and package publication for a Gentoo desktop profile. | Python · Shell · GitHub Actions |
+
+[Browse all repositories →](https://github.com/naelolaiz?tab=repositories)
