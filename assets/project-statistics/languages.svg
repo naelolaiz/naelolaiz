@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="372"
+ viewBox="0 0 480 372" role="img" aria-labelledby="languages-title languages-desc">
+<title id="languages-title">Language mix</title>
+<desc id="languages-desc">GitHub language-byte distribution across 19 source repositories, excluding support forks. Repository composition is not a proficiency measure. VHDL: 34.05%, 2 repositories; JavaScript: 15.89%, 2 repositories; Verilog: 11.63%, 2 repositories; Python: 10.13%, 6 repositories; C++: 9.71%, 7 repositories; C: 8.42%, 2 repositories; Shell: 3.57%, 9 repositories; Other: 6.61%, 13 repositories.</desc>
+<style>
+svg { color-scheme: light dark; }
+text {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  fill: #172b3a;
+}
+.background { fill: #ffffff; stroke: #dce5ec; }
+.muted { fill: #536775; }
+.subtle { fill: #70828e; }
+.rule { stroke: #e6edf2; }
+.track { fill: #edf3f6; }
+.activity { fill: #159bb7; }
+.partial { fill: #7c69d6; stroke: #6754bd; stroke-width: 1.5; stroke-dasharray: 3 2; }
+.accent { fill: #087f99; }
+.empty { stroke: #b8c8d2; }
+@media (prefers-color-scheme: dark) {
+  text { fill: #e6edf3; }
+  .background { fill: #111a24; stroke: #2b3b49; }
+  .muted { fill: #acbcc8; }
+  .subtle { fill: #91a5b5; }
+  .rule { stroke: #2a3947; }
+  .track { fill: #223341; }
+  .activity { fill: #42b9d0; }
+  .partial { fill: #9a87ef; stroke: #c3b4ff; }
+  .accent { fill: #69cce0; }
+  .empty { stroke: #586e7e; }
+}
+</style>
+<rect x="1.00" y="1.00" width="478.00" height="370.00" rx="18" class="background"/>
+<text x="26" y="37" font-size="22" font-weight="650" class="" text-anchor="start">Language mix</text>
+<text x="26" y="61" font-size="12" font-weight="400" class="muted" text-anchor="start">17 languages · GitHub bytes · 19 source repos</text>
+<text x="26" y="92" font-size="13" font-weight="550" class="" text-anchor="start">VHDL</text>
+<text x="382" y="92" font-size="11" font-weight="400" class="muted" text-anchor="end">2 repos</text>
+<text x="454" y="92" font-size="12" font-weight="550" class="" text-anchor="end">34.0%</text>
+<rect x="26.00" y="99.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="99.00" width="145.72" height="6.00" rx="3" class="" fill="#159bb7"/>
+<text x="26" y="121" font-size="13" font-weight="550" class="" text-anchor="start">JavaScript</text>
+<text x="382" y="121" font-size="11" font-weight="400" class="muted" text-anchor="end">2 repos</text>
+<text x="454" y="121" font-size="12" font-weight="550" class="" text-anchor="end">15.9%</text>
+<rect x="26.00" y="128.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="128.00" width="67.99" height="6.00" rx="3" class="" fill="#7c69d6"/>
+<text x="26" y="150" font-size="13" font-weight="550" class="" text-anchor="start">Verilog</text>
+<text x="382" y="150" font-size="11" font-weight="400" class="muted" text-anchor="end">2 repos</text>
+<text x="454" y="150" font-size="12" font-weight="550" class="" text-anchor="end">11.6%</text>
+<rect x="26.00" y="157.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="157.00" width="49.77" height="6.00" rx="3" class="" fill="#4386bc"/>
+<text x="26" y="179" font-size="13" font-weight="550" class="" text-anchor="start">Python</text>
+<text x="382" y="179" font-size="11" font-weight="400" class="muted" text-anchor="end">6 repos</text>
+<text x="454" y="179" font-size="12" font-weight="550" class="" text-anchor="end">10.1%</text>
+<rect x="26.00" y="186.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="186.00" width="43.37" height="6.00" rx="3" class="" fill="#409c95"/>
+<text x="26" y="208" font-size="13" font-weight="550" class="" text-anchor="start">C++</text>
+<text x="382" y="208" font-size="11" font-weight="400" class="muted" text-anchor="end">7 repos</text>
+<text x="454" y="208" font-size="12" font-weight="550" class="" text-anchor="end">9.7%</text>
+<rect x="26.00" y="215.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="215.00" width="41.56" height="6.00" rx="3" class="" fill="#a26fa6"/>
+<text x="26" y="237" font-size="13" font-weight="550" class="" text-anchor="start">C</text>
+<text x="382" y="237" font-size="11" font-weight="400" class="muted" text-anchor="end">2 repos</text>
+<text x="454" y="237" font-size="12" font-weight="550" class="" text-anchor="end">8.4%</text>
+<rect x="26.00" y="244.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="244.00" width="36.03" height="6.00" rx="3" class="" fill="#708ca4"/>
+<text x="26" y="266" font-size="13" font-weight="550" class="" text-anchor="start">Shell</text>
+<text x="382" y="266" font-size="11" font-weight="400" class="muted" text-anchor="end">9 repos</text>
+<text x="454" y="266" font-size="12" font-weight="550" class="" text-anchor="end">3.6%</text>
+<rect x="26.00" y="273.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="273.00" width="15.28" height="6.00" rx="3" class="" fill="#798792"/>
+<text x="26" y="295" font-size="13" font-weight="550" class="" text-anchor="start">Other</text>
+<text x="382" y="295" font-size="11" font-weight="400" class="muted" text-anchor="end">13 repos</text>
+<text x="454" y="295" font-size="12" font-weight="550" class="" text-anchor="end">6.6%</text>
+<rect x="26.00" y="302.00" width="428.00" height="6.00" rx="3" class="track"/>
+<rect x="26.00" y="302.00" width="28.28" height="6.00" rx="3" class="" fill="#8a94a0"/>
+<line x1="26" y1="334" x2="454" y2="334" class="rule"/>
+<text x="26" y="355" font-size="11" font-weight="400" class="subtle" text-anchor="start">Updated 08 Oct 2026</text>
+<text x="454" y="355" font-size="11" font-weight="400" class="subtle" text-anchor="end">Featured project index</text>
+</svg>
