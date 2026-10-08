@@ -1,0 +1,28 @@
+{
+  "owner": "naelolaiz",
+  "timezone": "Europe/Madrid",
+  "activity_months": 12,
+  "repositories": [
+    "learning_fpga",
+    "hdltools",
+    "esp32s31-alpine",
+    "alpine-riscv32",
+    "luckfox_rockchip_testing",
+    "openbouffalo_dev_container",
+    "esp32_wifiAP_httpServer_signalGenerator",
+    "test_esp32_timers",
+    "PoC_PoV",
+    "osc_to_dmx512",
+    "platform-espressif32",
+    "M1s_BL808_Linux_SDK",
+    "PyMOPanel",
+    "3d_models",
+    "gentoo-binhost",
+    "gitea-rootless-podman-kit",
+    "gcc_updates",
+    "vamp_wavediff",
+    "voxpad",
+    "JDY-31_PSG9080",
+    "sprint_to_nowhere"
+  ]
+}

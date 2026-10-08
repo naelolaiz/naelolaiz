@@ -1,0 +1,776 @@
+{
+  "generated_at": "2026-10-08T20:21:22+00:00",
+  "timezone": "Europe/Madrid",
+  "period": {
+    "start": "2025-11-01T00:00:00+01:00",
+    "end": "2026-10-08T22:21:22+02:00"
+  },
+  "repositories": [
+    {
+      "name": "learning_fpga",
+      "url": "https://github.com/naelolaiz/learning_fpga",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "VHDL": 1502690,
+        "Verilog": 513177,
+        "Makefile": 57416,
+        "Python": 54498,
+        "SystemVerilog": 15643,
+        "Assembly": 9523,
+        "Tcl": 947
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 70,
+        "2026-05": 13,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 4
+      },
+      "last_commit_at": "2026-10-04T12:28:32+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/release_tags.yml"
+      ],
+      "stars": 1,
+      "forks": 1
+    },
+    {
+      "name": "hdltools",
+      "url": "https://github.com/naelolaiz/hdltools",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 49889,
+        "Dockerfile": 9056,
+        "VHDL": 880,
+        "SystemVerilog": 749,
+        "Shell": 596,
+        "Verilog": 352
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 15,
+        "2026-05": 4,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2026-05-18T09:14:39+00:00",
+      "workflow_files": [
+        ".github/workflows/docker-image.yml"
+      ],
+      "stars": 2,
+      "forks": 1
+    },
+    {
+      "name": "esp32s31-alpine",
+      "url": "https://github.com/naelolaiz/esp32s31-alpine",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Shell": 3107
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 42
+      },
+      "last_commit_at": "2026-10-07T23:24:08+00:00",
+      "workflow_files": [],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "alpine-riscv32",
+      "url": "https://github.com/naelolaiz/alpine-riscv32",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Shell": 6979
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 38
+      },
+      "last_commit_at": "2026-10-08T18:24:24+00:00",
+      "workflow_files": [
+        ".github/workflows/packages.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "luckfox_rockchip_testing",
+      "url": "https://github.com/naelolaiz/luckfox_rockchip_testing",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "C++": 13732,
+        "CMake": 2289,
+        "Shell": 729
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2023-12-12T19:27:02+00:00",
+      "workflow_files": [
+        ".github/workflows/cmake-single-platform.yml"
+      ],
+      "stars": 7,
+      "forks": 1
+    },
+    {
+      "name": "openbouffalo_dev_container",
+      "url": "https://github.com/naelolaiz/openbouffalo_dev_container",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Dockerfile": 5975
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2023-03-02T19:35:55+00:00",
+      "workflow_files": [
+        ".github/workflows/create_image.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "esp32_wifiAP_httpServer_signalGenerator",
+      "url": "https://github.com/naelolaiz/esp32_wifiAP_httpServer_signalGenerator",
+      "default_branch": "master",
+      "fork": false,
+      "languages": {
+        "C": 40691,
+        "C++": 26081,
+        "CMake": 446
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2022-02-09T20:20:11+00:00",
+      "workflow_files": [
+        ".github/workflows/main.yml"
+      ],
+      "stars": 0,
+      "forks": 1
+    },
+    {
+      "name": "test_esp32_timers",
+      "url": "https://github.com/naelolaiz/test_esp32_timers",
+      "default_branch": "master",
+      "fork": false,
+      "languages": {
+        "C++": 24056,
+        "CMake": 439
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2022-02-13T21:29:11+00:00",
+      "workflow_files": [
+        ".github/workflows/cmake.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "PoC_PoV",
+      "url": "https://github.com/naelolaiz/PoC_PoV",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "C": 331103,
+        "C++": 13042,
+        "HTML": 3471
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2024-04-10T17:22:04+00:00",
+      "workflow_files": [
+        ".github/workflows/main.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "osc_to_dmx512",
+      "url": "https://github.com/naelolaiz/osc_to_dmx512",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "C++": 14382
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2024-10-20T19:04:16+00:00",
+      "workflow_files": [],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "platform-espressif32",
+      "url": "https://github.com/naelolaiz/platform-espressif32",
+      "default_branch": "develop",
+      "fork": true,
+      "languages": {},
+      "commits_by_month": {},
+      "last_commit_at": null,
+      "workflow_files": [],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "M1s_BL808_Linux_SDK",
+      "url": "https://github.com/naelolaiz/M1s_BL808_Linux_SDK",
+      "default_branch": "main",
+      "fork": true,
+      "languages": {},
+      "commits_by_month": {},
+      "last_commit_at": null,
+      "workflow_files": [],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "PyMOPanel",
+      "url": "https://github.com/naelolaiz/PyMOPanel",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 36611,
+        "Shell": 98
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 1,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2026-03-13T09:39:05+00:00",
+      "workflow_files": [],
+      "stars": 1,
+      "forks": 1
+    },
+    {
+      "name": "3d_models",
+      "url": "https://github.com/naelolaiz/3d_models",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "OpenSCAD": 70305
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2025-10-17T04:00:27+00:00",
+      "workflow_files": [
+        ".github/workflows/main.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "gentoo-binhost",
+      "url": "https://github.com/naelolaiz/gentoo-binhost",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 99929,
+        "Shell": 98267
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 26,
+        "2026-05": 12,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 10
+      },
+      "last_commit_at": "2026-10-07T15:48:28+00:00",
+      "workflow_files": [
+        ".github/workflows/build.yml",
+        ".github/workflows/check-workarounds.yml",
+        ".github/workflows/ci.yml",
+        ".github/workflows/schedule.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "gitea-rootless-podman-kit",
+      "url": "https://github.com/naelolaiz/gitea-rootless-podman-kit",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Shell": 33020,
+        "Makefile": 107
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 9,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2026-05-09T11:08:28+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "gcc_updates",
+      "url": "https://github.com/naelolaiz/gcc_updates",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "C++": 307840,
+        "CMake": 83909,
+        "Shell": 12752,
+        "Dockerfile": 1209
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 13,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 12,
+        "2026-09": 0,
+        "2026-10": 1
+      },
+      "last_commit_at": "2026-10-03T15:47:56+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "vamp_wavediff",
+      "url": "https://github.com/naelolaiz/vamp_wavediff",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "C++": 29735,
+        "QML": 7818,
+        "CMake": 6349,
+        "Shell": 2086
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 2,
+        "2026-05": 4,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2026-05-04T22:18:33+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "voxpad",
+      "url": "https://github.com/naelolaiz/voxpad",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 117178,
+        "JavaScript": 108123,
+        "CSS": 8240,
+        "HTML": 7324
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 16
+      },
+      "last_commit_at": "2026-10-04T18:36:00+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/codeql.yml",
+        ".github/workflows/dependencies.yml",
+        ".github/workflows/pages.yml",
+        ".github/workflows/repository-security.yml",
+        ".github/workflows/scorecard.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "JDY-31_PSG9080",
+      "url": "https://github.com/naelolaiz/JDY-31_PSG9080",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 89378
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2025-03-23T12:54:01+00:00",
+      "workflow_files": [],
+      "stars": 1,
+      "forks": 0
+    },
+    {
+      "name": "sprint_to_nowhere",
+      "url": "https://github.com/naelolaiz/sprint_to_nowhere",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "JavaScript": 593468,
+        "HTML": 551,
+        "CSS": 59
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 22,
+        "2026-05": 6,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0
+      },
+      "last_commit_at": "2026-05-01T05:51:32+00:00",
+      "workflow_files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "stars": 0,
+      "forks": 0
+    }
+  ],
+  "summary": {
+    "featured_repositories": 21,
+    "source_repositories": 19,
+    "support_forks": 2,
+    "language_count": 17,
+    "repositories_with_workflows": 15,
+    "commits_in_period": 320,
+    "active_repositories_90_days": 6
+  },
+  "languages": [
+    {
+      "name": "VHDL",
+      "bytes": 1503570,
+      "repositories": 2
+    },
+    {
+      "name": "JavaScript",
+      "bytes": 701591,
+      "repositories": 2
+    },
+    {
+      "name": "Verilog",
+      "bytes": 513529,
+      "repositories": 2
+    },
+    {
+      "name": "Python",
+      "bytes": 447483,
+      "repositories": 6
+    },
+    {
+      "name": "C++",
+      "bytes": 428868,
+      "repositories": 7
+    },
+    {
+      "name": "C",
+      "bytes": 371794,
+      "repositories": 2
+    },
+    {
+      "name": "Shell",
+      "bytes": 157634,
+      "repositories": 9
+    },
+    {
+      "name": "CMake",
+      "bytes": 93432,
+      "repositories": 5
+    },
+    {
+      "name": "OpenSCAD",
+      "bytes": 70305,
+      "repositories": 1
+    },
+    {
+      "name": "Makefile",
+      "bytes": 57523,
+      "repositories": 2
+    },
+    {
+      "name": "SystemVerilog",
+      "bytes": 16392,
+      "repositories": 2
+    },
+    {
+      "name": "Dockerfile",
+      "bytes": 16240,
+      "repositories": 3
+    },
+    {
+      "name": "HTML",
+      "bytes": 11346,
+      "repositories": 3
+    },
+    {
+      "name": "Assembly",
+      "bytes": 9523,
+      "repositories": 1
+    },
+    {
+      "name": "CSS",
+      "bytes": 8299,
+      "repositories": 2
+    },
+    {
+      "name": "QML",
+      "bytes": 7818,
+      "repositories": 1
+    },
+    {
+      "name": "Tcl",
+      "bytes": 947,
+      "repositories": 1
+    }
+  ],
+  "activity": [
+    {
+      "month": "2025-11",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2025-12",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-01",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-02",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-03",
+      "commits": 1,
+      "partial": false
+    },
+    {
+      "month": "2026-04",
+      "commits": 135,
+      "partial": false
+    },
+    {
+      "month": "2026-05",
+      "commits": 61,
+      "partial": false
+    },
+    {
+      "month": "2026-06",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-07",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-08",
+      "commits": 12,
+      "partial": false
+    },
+    {
+      "month": "2026-09",
+      "commits": 0,
+      "partial": false
+    },
+    {
+      "month": "2026-10",
+      "commits": 111,
+      "partial": true
+    }
+  ]
+}

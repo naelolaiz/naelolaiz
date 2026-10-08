@@ -16,6 +16,7 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
+| [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
 
 **Languages:** VHDL, Verilog, C / C++, Python, Shell<br>
 **Platforms & tools:** GHDL, Yosys, RISC-V, Linux, ESP32, Qt, Podman / Docker, GitHub Actions
@@ -186,5 +187,17 @@ Audio and WhatsApp voice-message transcription through a **Python CLI, Qt deskto
 A satirical **sprint-management browser game** about backlog planning, interruptions, technical debt and burnout. Built with React, Vite and Tailwind CSS, with automated GitHub Pages deployment. The goal is to complete at least ten sprints while keeping technical debt low.
 
 [Play online](https://naelolaiz.github.io/sprint_to_nowhere/) · [Game mechanics](https://github.com/naelolaiz/sprint_to_nowhere/blob/main/src/game/mechanics.js)
+
+## Project statistics
+
+Statistics for the featured projects, with support forks counted separately from source repositories.
+
+[![Project overview: featured repositories, source repositories, support forks, detected languages and workflow presence](assets/project-statistics/overview.svg)](stats/README.md)
+
+[![Language mix across source repositories, measured by GitHub-detected code bytes](assets/project-statistics/languages.svg)](stats/README.md)
+
+[![Monthly non-merge commit activity across source repositories' default branches; current month is partial](assets/project-statistics/activity.svg)](stats/README.md)
+
+[Snapshot data](stats/data.json) · [Metrics & refresh details](stats/README.md)
 
 [Browse all repositories →](https://github.com/naelolaiz?tab=repositories)
