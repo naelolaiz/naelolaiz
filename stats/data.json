@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-08T20:40:40.407089+00:00",
+  "generated_at": "2026-10-09T05:33:51.892749+00:00",
   "timezone": "Europe/Madrid",
   "period": {
     "start": "2025-11-01T00:00:00+01:00",
-    "end": "2026-10-08T22:40:40.407089+02:00"
+    "end": "2026-10-09T07:33:51.892749+02:00"
   },
   "repositories": [
     {
@@ -589,9 +589,9 @@
       "default_branch": "main",
       "fork": false,
       "languages": {
-        "JavaScript": 593468,
-        "HTML": 551,
-        "CSS": 59
+        "JavaScript": 762837,
+        "CSS": 763,
+        "HTML": 551
       },
       "commits_by_month": {
         "2025-11": 0,
@@ -605,11 +605,12 @@
         "2026-07": 0,
         "2026-08": 0,
         "2026-09": 0,
-        "2026-10": 0
+        "2026-10": 17
       },
-      "last_commit_at": "2026-05-01T05:51:32+00:00",
+      "last_commit_at": "2026-10-08T22:33:03+00:00",
       "workflow_files": [
-        ".github/workflows/deploy.yml"
+        ".github/workflows/deploy.yml",
+        ".github/workflows/security.yml"
       ],
       "stars": 0,
       "forks": 0
@@ -621,8 +622,8 @@
     "support_forks": 2,
     "language_count": 17,
     "repositories_with_workflows": 15,
-    "commits_in_period": 320,
-    "active_repositories_90_days": 6
+    "commits_in_period": 337,
+    "active_repositories_90_days": 7
   },
   "languages": [
     {
@@ -632,7 +633,7 @@
     },
     {
       "name": "JavaScript",
-      "bytes": 701591,
+      "bytes": 870960,
       "repositories": 2
     },
     {
@@ -697,7 +698,7 @@
     },
     {
       "name": "CSS",
-      "bytes": 8299,
+      "bytes": 9003,
       "repositories": 2
     },
     {
@@ -769,7 +770,7 @@
     },
     {
       "month": "2026-10",
-      "commits": 111,
+      "commits": 128,
       "partial": true
     }
   ]
