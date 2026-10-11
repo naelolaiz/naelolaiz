@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-10T05:30:48.573316+00:00",
+  "generated_at": "2026-10-11T05:31:11.591010+00:00",
   "timezone": "Europe/Madrid",
   "period": {
     "start": "2025-11-01T00:00:00+01:00",
-    "end": "2026-10-10T07:30:48.573316+02:00"
+    "end": "2026-10-11T07:31:11.591010+02:00"
   },
   "repositories": [
     {
@@ -109,7 +109,7 @@
       "default_branch": "main",
       "fork": false,
       "languages": {
-        "Shell": 6979
+        "Shell": 16397
       },
       "commits_by_month": {
         "2025-11": 0,
@@ -123,10 +123,11 @@
         "2026-07": 0,
         "2026-08": 0,
         "2026-09": 0,
-        "2026-10": 38
+        "2026-10": 53
       },
-      "last_commit_at": "2026-10-08T18:24:24+00:00",
+      "last_commit_at": "2026-10-10T21:57:08+00:00",
       "workflow_files": [
+        ".github/workflows/native.yml",
         ".github/workflows/packages.yml"
       ],
       "stars": 0,
@@ -461,8 +462,8 @@
       "default_branch": "main",
       "fork": false,
       "languages": {
-        "C++": 307840,
-        "CMake": 83909,
+        "C++": 314132,
+        "CMake": 84798,
         "Shell": 12752,
         "Dockerfile": 1209
       },
@@ -478,9 +479,9 @@
         "2026-07": 0,
         "2026-08": 12,
         "2026-09": 0,
-        "2026-10": 1
+        "2026-10": 3
       },
-      "last_commit_at": "2026-10-03T15:47:56+00:00",
+      "last_commit_at": "2026-10-10T12:22:04+00:00",
       "workflow_files": [
         ".github/workflows/ci.yml"
       ],
@@ -622,7 +623,7 @@
     "support_forks": 2,
     "language_count": 17,
     "repositories_with_workflows": 15,
-    "commits_in_period": 344,
+    "commits_in_period": 361,
     "active_repositories_90_days": 7
   },
   "languages": [
@@ -648,7 +649,7 @@
     },
     {
       "name": "C++",
-      "bytes": 428868,
+      "bytes": 435160,
       "repositories": 7
     },
     {
@@ -658,12 +659,12 @@
     },
     {
       "name": "Shell",
-      "bytes": 157634,
+      "bytes": 167052,
       "repositories": 9
     },
     {
       "name": "CMake",
-      "bytes": 93432,
+      "bytes": 94321,
       "repositories": 5
     },
     {
@@ -770,7 +771,7 @@
     },
     {
       "month": "2026-10",
-      "commits": 135,
+      "commits": 152,
       "partial": true
     }
   ]
