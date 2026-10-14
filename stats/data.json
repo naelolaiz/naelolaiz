@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-14T05:29:20.772486+00:00",
+  "generated_at": "2026-10-14T21:15:05+00:00",
   "timezone": "Europe/Madrid",
   "period": {
     "start": "2025-11-01T00:00:00+01:00",
-    "end": "2026-10-14T07:29:20.772486+02:00"
+    "end": "2026-10-14T23:15:05+02:00"
   },
   "repositories": [
     {
@@ -103,6 +103,18 @@
       "workflow_files": [
         ".github/workflows/grieferpig-image.yml"
       ],
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "name": "linux",
+      "url": "https://github.com/naelolaiz/linux",
+      "default_branch": "integration/v6.18-esp32s31",
+      "fork": true,
+      "languages": {},
+      "commits_by_month": {},
+      "last_commit_at": null,
+      "workflow_files": [],
       "stars": 0,
       "forks": 0
     },
@@ -492,6 +504,37 @@
       "forks": 0
     },
     {
+      "name": "acoustic_spaces_simulator",
+      "url": "https://github.com/naelolaiz/acoustic_spaces_simulator",
+      "default_branch": "main",
+      "fork": false,
+      "languages": {
+        "Python": 1113272,
+        "C++": 106949,
+        "CMake": 1297
+      },
+      "commits_by_month": {
+        "2025-11": 0,
+        "2025-12": 0,
+        "2026-01": 0,
+        "2026-02": 0,
+        "2026-03": 0,
+        "2026-04": 0,
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 102
+      },
+      "last_commit_at": "2026-10-14T21:10:17+00:00",
+      "workflow_files": [
+        ".github/workflows/ci.yml"
+      ],
+      "stars": 1,
+      "forks": 0
+    },
+    {
       "name": "vamp_wavediff",
       "url": "https://github.com/naelolaiz/vamp_wavediff",
       "default_branch": "main",
@@ -621,15 +664,20 @@
     }
   ],
   "summary": {
-    "featured_repositories": 21,
-    "source_repositories": 19,
-    "support_forks": 2,
+    "featured_repositories": 23,
+    "source_repositories": 20,
+    "support_forks": 3,
     "language_count": 17,
-    "repositories_with_workflows": 16,
-    "commits_in_period": 410,
-    "active_repositories_90_days": 7
+    "repositories_with_workflows": 17,
+    "commits_in_period": 512,
+    "active_repositories_90_days": 8
   },
   "languages": [
+    {
+      "name": "Python",
+      "bytes": 1560755,
+      "repositories": 7
+    },
     {
       "name": "VHDL",
       "bytes": 1503570,
@@ -641,19 +689,14 @@
       "repositories": 2
     },
     {
+      "name": "C++",
+      "bytes": 542109,
+      "repositories": 8
+    },
+    {
       "name": "Verilog",
       "bytes": 513529,
       "repositories": 2
-    },
-    {
-      "name": "Python",
-      "bytes": 447483,
-      "repositories": 6
-    },
-    {
-      "name": "C++",
-      "bytes": 435160,
-      "repositories": 7
     },
     {
       "name": "C",
@@ -667,8 +710,8 @@
     },
     {
       "name": "CMake",
-      "bytes": 94321,
-      "repositories": 5
+      "bytes": 95618,
+      "repositories": 6
     },
     {
       "name": "OpenSCAD",
@@ -774,7 +817,7 @@
     },
     {
       "month": "2026-10",
-      "commits": 201,
+      "commits": 303,
       "partial": true
     }
   ]

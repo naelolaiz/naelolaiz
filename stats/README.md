@@ -12,7 +12,7 @@ Statistics cover the featured repositories in [projects.json](projects.json). Th
 - **Recent activity:** source repositories whose latest default-branch commit falls within the last 90 days.
 - **Workflows:** presence of `.github/workflows/*.yml` or `*.yaml` files. This count does not indicate that tests exist or that CI is passing.
 
-The PlatformIO and Sipeed SDK forks are included in the project count, while their languages and inherited commit history are excluded from aggregate source statistics. Private repositories and account-wide contribution metrics are outside this snapshot.
+The PlatformIO, Espressif Linux and Sipeed SDK forks are included in the project count, while their languages and inherited commit history are excluded from aggregate source statistics. Private repositories and account-wide contribution metrics are outside this snapshot.
 
 GitHub's language detection uses [Linguist](https://github.com/github-linguist/linguist/blob/main/docs/how-linguist-works.md) and repository attributes, including generated/vendored-file rules. [The language API](https://docs.github.com/en/rest/repos/repos#list-repository-languages) supplies byte counts. Activity and workflow presence come from the public default-branch Git trees.
 
