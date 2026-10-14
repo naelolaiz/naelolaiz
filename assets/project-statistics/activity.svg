@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="372"
  viewBox="0 0 480 372" role="img" aria-labelledby="activity-title activity-desc">
 <title id="activity-title">Source activity</title>
-<desc id="activity-desc">Monthly non-merge default-branch commit counts across source repositories, including all actors. Support-fork and generated-branch histories are excluded. November 2025: 0 commits; December 2025: 0 commits; January 2026: 0 commits; February 2026: 0 commits; March 2026: 1 commits; April 2026: 135 commits; May 2026: 61 commits; June 2026: 0 commits; July 2026: 0 commits; August 2026: 12 commits; September 2026: 0 commits; October 2026: 201 commits (partial month).</desc>
+<desc id="activity-desc">Monthly non-merge default-branch commit counts across source repositories, including all actors. Support-fork and generated-branch histories are excluded. November 2025: 0 commits; December 2025: 0 commits; January 2026: 0 commits; February 2026: 0 commits; March 2026: 1 commits; April 2026: 135 commits; May 2026: 61 commits; June 2026: 0 commits; July 2026: 0 commits; August 2026: 12 commits; September 2026: 0 commits; October 2026: 303 commits (partial month).</desc>
 <style>
 svg { color-scheme: light dark; }
 text {
@@ -33,16 +33,16 @@ text {
 <rect x="1.00" y="1.00" width="478.00" height="370.00" rx="18" class="background"/>
 <text x="26" y="37" font-size="22" font-weight="650" class="" text-anchor="start">Source activity</text>
 <text x="26" y="61" font-size="12" font-weight="400" class="muted" text-anchor="start">12 months · default branches · support forks excluded</text>
-<text x="26" y="108" font-size="34" font-weight="650" class="accent" text-anchor="start">410</text>
+<text x="26" y="108" font-size="34" font-weight="650" class="accent" text-anchor="start">512</text>
 <text x="26" y="132" font-size="13" font-weight="400" class="muted" text-anchor="start">Non-merge default-branch commits</text>
 <text x="454" y="106" font-size="10" font-weight="600" class="subtle" text-anchor="end">SOURCE REPOSITORIES</text>
 <text x="454" y="128" font-size="12" font-weight="400" class="muted" text-anchor="end">Includes automation</text>
 <line x1="47" y1="275" x2="454" y2="275" class="rule"/>
 <text x="39" y="279" font-size="10" font-weight="400" class="subtle" text-anchor="end">0</text>
 <line x1="47" y1="226.0" x2="454" y2="226.0" class="rule"/>
-<text x="39" y="230.0" font-size="10" font-weight="400" class="subtle" text-anchor="end">102</text>
+<text x="39" y="230.0" font-size="10" font-weight="400" class="subtle" text-anchor="end">152</text>
 <line x1="47" y1="177" x2="454" y2="177" class="rule"/>
-<text x="39" y="181" font-size="10" font-weight="400" class="subtle" text-anchor="end">204</text>
+<text x="39" y="181" font-size="10" font-weight="400" class="subtle" text-anchor="end">304</text>
 <g><title>November 2025: 0 commits</title><line x1="55.95833333333333" y1="274" x2="71.95833333333333" y2="274" class="empty"/></g>
 <text x="63.96" y="268.0" font-size="10" font-weight="400" class="muted" text-anchor="middle">0</text>
 <text x="63.96" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Nov</text>
@@ -55,14 +55,14 @@ text {
 <g><title>February 2026: 0 commits</title><line x1="157.70833333333334" y1="274" x2="173.70833333333334" y2="274" class="empty"/></g>
 <text x="165.71" y="268.0" font-size="10" font-weight="400" class="muted" text-anchor="middle">0</text>
 <text x="165.71" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Feb</text>
-<g><title>March 2026: 1 commits</title><rect x="189.62" y="274.52" width="20.00" height="0.48" rx="4" class="activity"/></g>
-<text x="199.62" y="267.51960784313724" font-size="10" font-weight="400" class="muted" text-anchor="middle">1</text>
+<g><title>March 2026: 1 commits</title><rect x="189.62" y="274.68" width="20.00" height="0.32" rx="4" class="activity"/></g>
+<text x="199.62" y="267.67763157894734" font-size="10" font-weight="400" class="muted" text-anchor="middle">1</text>
 <text x="199.62" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Mar</text>
-<g><title>April 2026: 135 commits</title><rect x="223.54" y="210.15" width="20.00" height="64.85" rx="4" class="activity"/></g>
-<text x="233.54" y="203.1470588235294" font-size="10" font-weight="400" class="muted" text-anchor="middle">135</text>
+<g><title>April 2026: 135 commits</title><rect x="223.54" y="231.48" width="20.00" height="43.52" rx="4" class="activity"/></g>
+<text x="233.54" y="224.48026315789474" font-size="10" font-weight="400" class="muted" text-anchor="middle">135</text>
 <text x="233.54" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Apr</text>
-<g><title>May 2026: 61 commits</title><rect x="257.46" y="245.70" width="20.00" height="29.30" rx="4" class="activity"/></g>
-<text x="267.46" y="238.69607843137254" font-size="10" font-weight="400" class="muted" text-anchor="middle">61</text>
+<g><title>May 2026: 61 commits</title><rect x="257.46" y="255.34" width="20.00" height="19.66" rx="4" class="activity"/></g>
+<text x="267.46" y="248.33552631578948" font-size="10" font-weight="400" class="muted" text-anchor="middle">61</text>
 <text x="267.46" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">May</text>
 <g><title>June 2026: 0 commits</title><line x1="293.37499999999994" y1="274" x2="309.37499999999994" y2="274" class="empty"/></g>
 <text x="301.37" y="268.0" font-size="10" font-weight="400" class="muted" text-anchor="middle">0</text>
@@ -70,14 +70,14 @@ text {
 <g><title>July 2026: 0 commits</title><line x1="327.29166666666663" y1="274" x2="343.29166666666663" y2="274" class="empty"/></g>
 <text x="335.29" y="268.0" font-size="10" font-weight="400" class="muted" text-anchor="middle">0</text>
 <text x="335.29" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Jul</text>
-<g><title>August 2026: 12 commits</title><rect x="359.21" y="269.24" width="20.00" height="5.76" rx="4" class="activity"/></g>
-<text x="369.21" y="262.2352941176471" font-size="10" font-weight="400" class="muted" text-anchor="middle">12</text>
+<g><title>August 2026: 12 commits</title><rect x="359.21" y="271.13" width="20.00" height="3.87" rx="4" class="activity"/></g>
+<text x="369.21" y="264.13157894736844" font-size="10" font-weight="400" class="muted" text-anchor="middle">12</text>
 <text x="369.21" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Aug</text>
 <g><title>September 2026: 0 commits</title><line x1="395.12499999999994" y1="274" x2="411.12499999999994" y2="274" class="empty"/></g>
 <text x="403.12" y="268.0" font-size="10" font-weight="400" class="muted" text-anchor="middle">0</text>
 <text x="403.12" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Sep</text>
-<g><title>October 2026: 201 commits (partial month)</title><rect x="427.04" y="178.44" width="20.00" height="96.56" rx="4" class="partial"/></g>
-<text x="437.04" y="171.44117647058823" font-size="10" font-weight="400" class="muted" text-anchor="middle">201</text>
+<g><title>October 2026: 303 commits (partial month)</title><rect x="427.04" y="177.32" width="20.00" height="97.68" rx="4" class="partial"/></g>
+<text x="437.04" y="170.32236842105263" font-size="10" font-weight="400" class="muted" text-anchor="middle">303</text>
 <text x="437.04" y="294" font-size="10" font-weight="400" class="muted" text-anchor="middle">Oct*</text>
 <text x="26" y="320" font-size="11" font-weight="400" class="subtle" text-anchor="start">Nov 2025 – Oct 2026</text>
 <text x="454" y="320" font-size="11" font-weight="400" class="subtle" text-anchor="end">* Partial month</text>

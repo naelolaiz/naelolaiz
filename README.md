@@ -7,13 +7,14 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 | :--- | :--- |
 | **[FPGA & digital design](#fpga--digital-design)** | **[learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu)** — paired VHDL/Verilog, RISC-V CPUs and SoC, peripherals, testbenches and CI diagrams. |
 | [HDL tooling](#hdltools--hdl-toolchain--waveform-rendering) | [hdltools / waveview](#hdltools--hdl-toolchain--waveform-rendering) — simulation, synthesis and waveform rendering. |
-| [Embedded Linux](#embedded-linux) | **RISC-V & Arm:** [esp32s31-alpine](#alpine-linux-on-esp32-s31) · [alpine-riscv32](#alpine-linux-for-32-bit-risc-v) · [luckfox_rockchip_testing](#luckfox_rockchip_testing) · [openbouffalo_dev_container / BL808](#openbouffalo_dev_container) |
+| [Embedded Linux](#embedded-linux) | **RISC-V & Arm:** [esp32s31-alpine](#alpine-linux-on-esp32-s31) · [alpine-riscv32](#alpine-linux-for-32-bit-risc-v) · [luckfox_rockchip_testing](#luckfox_rockchip_testing) · [openbouffalo_dev_container / BL808](#openbouffalo_dev_container) · [ESP32-S31 kernel work](#linux--esp32-s31-kernel-work) |
 | [Microcontrollers & firmware](#microcontrollers--firmware) | **ESP32 / ESP32-S3 / ESP32-C3:** [signal-generator experiments](https://github.com/naelolaiz/esp32_wifiAP_httpServer_signalGenerator) · [timers & DAC](https://github.com/naelolaiz/test_esp32_timers) · [PoC_PoV](https://github.com/naelolaiz/PoC_PoV) · [DMX512](https://github.com/naelolaiz/osc_to_dmx512) |
 | [Board support & build automation](#board-support--build-automation) | [PlatformIO ESP32-S31 support](#esp32-s31-support-for-platformio) · [Sipeed M1s / BL808 SDK](#m1s_bl808_linux_sdk) |
 | [Drivers & peripheral interfaces](#drivers--peripheral-interfaces) | **[PyMOPanel](#pymopanel)** · Linux GPIO/PWM · MPU6050 · FPGA UART/I²C · UDA1380 · AD9833 experiments. |
 | [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and mirror mounts. |
 | [Linux packaging & infrastructure](#linux-packaging--infrastructure) | **[gentoo-binhost](#gentoo-binhost)** — signed binary packages & build automation · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
+| [Room acoustics & audio DSP](#acoustic_spaces_simulator) | **[acoustic_spaces_simulator](#acoustic_spaces_simulator)** — room editing, reflection paths, spatial impulse responses, convolution and a 12-view gallery. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
 | [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
@@ -69,6 +70,14 @@ Bringing Alpine Linux to the **ESP32-S31 Function-CoreBoard-1**, using Espressif
 - **Behind the boot:** documented BSP versions, kernel configuration fragments, a Buildroot overlay, and a dated journal of the bring-up. Pressing the reset button boots Alpine when the USB stick is present, with a Buildroot fallback when it is absent.
 
 [Source & setup](https://github.com/naelolaiz/esp32s31-alpine) · [Boot journal](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-boot-from-stick.md) · [Ethernet & package-install logs](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-network-apk.md)
+
+#### [linux — ESP32-S31 kernel work](https://github.com/naelolaiz/linux/tree/review/esp32s31-smp-wifi)
+
+**Kernel fork:** targeted ESP32-S31 fixes and experimental SMP/Wi-Fi integration with Espressif's boot stack. Includes RV32 F-only floating-point support, non-coherent DMA setup and XIP RAM-resource accounting fixes, plus adaptations of an existing SMP/radio port for per-hart interrupts, timers and cache handling.
+
+CI builds the XIP kernel and bootloader artifacts, plus matched radio artifacts on the SMP/Wi-Fi branch.
+
+[Focused fixes](https://github.com/naelolaiz/linux/tree/review/esp32s31-fixes) · [SMP/Wi-Fi integration](https://github.com/naelolaiz/linux/tree/review/esp32s31-smp-wifi) · [Patch comparison](https://github.com/naelolaiz/linux/compare/dc0e3821e39bd7c169cefd274691e1998a844028...review/esp32s31-smp-wifi) · [Build verification](https://github.com/naelolaiz/linux/actions/runs/38437999688)
 
 #### [Alpine Linux for 32-bit RISC-V](https://github.com/naelolaiz/alpine-riscv32)
 
@@ -168,6 +177,47 @@ An executable **C++11–26 language and standard-library reference**, with compi
 [Feature index](https://github.com/naelolaiz/gcc_updates/blob/main/features/TOPICS.md) · [Reference routes](https://github.com/naelolaiz/gcc_updates/blob/main/docs/reference-paths.md) · [Compiler CI matrix](https://github.com/naelolaiz/gcc_updates/blob/main/.github/workflows/ci.yml)
 
 ## Audio & instrument control
+
+### [acoustic_spaces_simulator](https://github.com/naelolaiz/acoustic_spaces_simulator)
+
+Room-acoustics simulation and auralisation toolkit with a **Qt/PySide6 editor, Python API and C++ processing core**. Load or draw a room, place sound sources and listeners, generate impulse responses and listen through convolution.
+
+- **Simulation:** ray tracing or image sources for early reflections, stochastic late reverberation, edge diffraction and an optional low-frequency wave solver.
+- **Spatial audio:** mono, binaural, Ambisonics and loudspeaker impulse responses, offline/real-time convolution and OSC head tracking.
+- **Analysis:** octave-band decay parameters, arrival directions, source directivity, audience coverage/STI maps, sweep measurements and comparisons with measured rooms.
+- **Verification:** cross-platform tests, analytic reference cases and a published validation report documenting results and current limits.
+
+[Setup & examples](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/README.md) · [Validation report](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic_spaces_simulator/tree/main/examples) · [Changelog](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/CHANGELOG.md)
+
+#### Acoustic simulation gallery
+
+*Select an image to open its full-size view.*
+
+| Qt editor & concert-hall results | Floor-plan editing |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor.png" alt="Qt editor showing a concert-hall model, source properties, reflection paths and simulation results" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/plan.png" alt="Floor-plan editor showing draggable corners, wall lengths, sources and listeners" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/plan.png) |
+
+| Church model & reflection paths | Animated sound particles |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/church_paths.png" alt="Church model with direct sound and reflection paths through third order" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/church_paths.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/particles.gif" alt="Animated sound particles propagating through the concert hall, colored by level at 1 kHz" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/particles.gif) |
+
+| Speech-intelligibility overlay in the editor | Audience coverage map |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor_map.png" alt="Speech transmission index overlaid on the lecture-hall model in the Qt editor" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor_map.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/coverage.png" alt="Top-down speech transmission index map across 176 audience positions" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/coverage.png) |
+
+| Echogram & octave-band reverberation | Arrival directions |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/response.png" alt="Simulated concert-hall echogram and reverberation decay curves by octave band" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/response.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directions.png" alt="Early arrival directions and late directional energy at a listener position" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directions.png) |
+
+| Source-directivity patterns | Diffraction around a corner |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directivity.png" alt="Horizontal and vertical source-directivity polar patterns across octave bands" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directivity.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/diffraction.png" alt="Sound levels around a gallery corner, with and without edge diffraction" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/diffraction.png) |
+
+| Low-frequency wave-model comparison | Measured-room response analysis |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/wave.png" alt="Low-frequency transfer functions comparing modal theory, the wave solver and geometric rays" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/wave.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/measured.png" alt="Measured BRAS CR2 seminar-room impulse response with noise-floor estimates and corrected octave-band decay curves" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/measured.png) |
+
+*Measured-response example: BRAS CR2, LS1→MP1, from the [BRAS benchmark](https://doi.org/10.14279/depositonce-6726.3), CC BY-SA 4.0.*
 
 | Project | What it does | Stack |
 | :--- | :--- | :--- |
