@@ -246,12 +246,12 @@ A satirical **sprint-management browser game** about backlog planning, interrupt
 
 Statistics for the featured projects, with support forks counted separately from source repositories.
 
-[![Project overview: featured repositories, source repositories, support forks, detected languages and workflow presence](assets/project-statistics/overview.svg)](stats/README.md)
+[![Project overview: featured repositories, source repositories, support forks, detected languages and workflow presence](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/overview.svg)](stats/README.md)
 
-[![Language mix across source repositories, measured by GitHub-detected code bytes](assets/project-statistics/languages.svg)](stats/README.md)
+[![Language mix across source repositories, measured by GitHub-detected code bytes](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/languages.svg)](stats/README.md)
 
-[![Monthly non-merge commit activity across source repositories' default branches; current month is partial](assets/project-statistics/activity.svg)](stats/README.md)
+[![Monthly non-merge commit activity across source repositories' default branches; current month is partial](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/activity.svg)](stats/README.md)
 
-[Snapshot data](stats/data.json) · [Metrics & refresh details](stats/README.md)
+[Snapshot data](https://github.com/naelolaiz/naelolaiz/blob/project-statistics/data.json) · [Metrics & refresh details](stats/README.md)
 
 [Browse all repositories →](https://github.com/naelolaiz?tab=repositories)

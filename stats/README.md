@@ -2,7 +2,7 @@
 
 Statistics cover the featured repositories in [projects.json](projects.json). The snapshot and charts describe the projects, with source repositories and support forks counted separately.
 
-[Snapshot data](data.json) · [Generator](../scripts/update_project_statistics.py) · [Refresh workflow](../.github/workflows/project-statistics.yml)
+[Snapshot data](https://github.com/naelolaiz/naelolaiz/blob/project-statistics/data.json) · [Generator](../scripts/update_project_statistics.py) · [Refresh workflow](../.github/workflows/project-statistics.yml)
 
 ## What the charts measure
 
@@ -18,9 +18,11 @@ GitHub's language detection uses [Linguist](https://github.com/github-linguist/l
 
 ## Refresh
 
-The workflow refreshes the snapshot daily and supports manual runs. Scheduled refresh starts after the workflow is merged into the default branch. A failed collection leaves the last complete snapshot in place.
+The workflow refreshes the snapshot daily, and when the configuration, scripts or workflow change on the default branch. It publishes `data.json` and the three SVG views as a single commit on the [`project-statistics`](https://github.com/naelolaiz/naelolaiz/tree/project-statistics) branch, replaced on every refresh, so the default branch history carries no refresh commits. The README embeds the views from that branch. A failed collection publishes nothing and leaves the last complete snapshot in place; its "Updated" date then shows how old it is.
 
-A local refresh uses Python 3 and Git:
+Manual runs on other branches are dry runs: they collect and render the snapshot, keep it as a workflow artifact, and publish nothing.
+
+A local refresh uses Python 3 and Git, and writes to `build/project-statistics/` unless `--output` names another directory:
 
 ```sh
 python3 scripts/update_project_statistics.py --config stats/projects.json
@@ -28,8 +30,8 @@ python3 scripts/update_project_statistics.py --config stats/projects.json
 
 The optional `GITHUB_TOKEN` environment variable raises the GitHub API allowance. The workflow supplies its repository token automatically. Git history is cached outside the checkout; only aggregate metrics are published, with no author names or email addresses.
 
-To redraw the charts from an existing snapshot:
+To redraw the charts from an existing snapshot, such as the published `data.json`:
 
 ```sh
-python3 scripts/update_project_statistics.py --input stats/data.json
+python3 scripts/update_project_statistics.py --input data.json --output build/project-statistics
 ```

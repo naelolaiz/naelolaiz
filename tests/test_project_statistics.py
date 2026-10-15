@@ -14,6 +14,8 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import update_project_statistics as statistics
 
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
+
 
 class CalendarTests(unittest.TestCase):
     def test_local_month_and_year_boundaries(self):
@@ -217,20 +219,29 @@ class PublicationTests(unittest.TestCase):
 
     def test_invalid_render_does_not_overwrite_any_output(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            data = root / "stats/data.json"
-            data.parent.mkdir(parents=True)
+            output = Path(temporary)
+            data = output / "data.json"
             data.write_text("previous snapshot\n")
-            svg = root / "assets/project-statistics/overview.svg"
-            svg.parent.mkdir(parents=True)
+            svg = output / "overview.svg"
             svg.write_text("previous SVG\n")
             renderer = types.ModuleType("render_project_statistics")
             renderer.render = lambda snapshot: {"overview.svg": "<svg/>"}
             with patch.dict(sys.modules, {"render_project_statistics": renderer}):
                 with self.assertRaises(statistics.CollectionError):
-                    statistics.publish({}, root)
+                    statistics.publish({}, output)
             self.assertEqual(data.read_text(), "previous snapshot\n")
             self.assertEqual(svg.read_text(), "previous SVG\n")
+            self.assertEqual(sorted(path.name for path in output.iterdir()), ["data.json", "overview.svg"])
+
+    def test_snapshot_and_views_are_written_flat_into_the_output_directory(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "project-statistics"
+            snapshot = statistics.read_json(FIXTURES / "snapshot" / "data.json")
+            statistics.publish(snapshot, output)
+            self.assertEqual(sorted(path.name for path in output.iterdir()), [
+                "activity.svg", "data.json", "languages.svg", "overview.svg",
+            ])
+            self.assertEqual(json.loads((output / "data.json").read_text()), snapshot)
 
 
 if __name__ == "__main__":
