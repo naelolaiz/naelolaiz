@@ -18,7 +18,7 @@ GitHub's language detection uses [Linguist](https://github.com/github-linguist/l
 
 ## Refresh
 
-The workflow refreshes the snapshot daily, and when the configuration, scripts or workflow change on the default branch. It publishes `data.json` and the three SVG views as a single commit on the [`project-statistics`](https://github.com/naelolaiz/naelolaiz/tree/project-statistics) branch, replaced on every refresh, so the default branch history carries no refresh commits. The README embeds the views from that branch. A failed collection publishes nothing and leaves the last complete snapshot in place; its "Updated" date then shows how old it is.
+The workflow refreshes the snapshot daily, and when the README, configuration, scripts, tests or workflow change on the default branch. The tests run first on every trigger and on pull requests; a failing test stops the refresh. It publishes `data.json` and the three SVG views as a single commit on the [`project-statistics`](https://github.com/naelolaiz/naelolaiz/tree/project-statistics) branch, replaced on every refresh, so the default branch history carries no refresh commits. The README embeds the views from that branch. A failed collection publishes nothing and leaves the last complete snapshot in place; its "Updated" date then shows how old it is.
 
 Manual runs on other branches are dry runs: they collect and render the snapshot, keep it as a workflow artifact, and publish nothing.
 

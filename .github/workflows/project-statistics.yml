@@ -1,4 +1,4 @@
-name: Refresh project statistics
+name: Project statistics
 
 on:
   schedule:
@@ -6,10 +6,19 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - main
     paths:
+      - README.md
       - stats/projects.json
       - scripts/**
+      - tests/**
+      - .github/workflows/project-statistics.yml
+  pull_request:
+    paths:
+      - README.md
+      - stats/**
+      - scripts/**
+      - tests/**
       - .github/workflows/project-statistics.yml
 
 permissions: {}
@@ -23,8 +32,31 @@ env:
   STATISTICS_BRANCH: project-statistics
 
 jobs:
+  # Runs on every trigger, so a scheduled refresh never publishes from code
+  # whose tests fail and pull requests get the same checks.
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+
+      - name: Run the statistics tests
+        run: python3 -m unittest discover -s tests -v
+
   refresh:
+    needs: test
     if: >-
+      github.event_name != 'pull_request' &&
       github.ref_type == 'branch' &&
       (github.event_name == 'workflow_dispatch' ||
        github.ref_name == github.event.repository.default_branch)
