@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Collect public repository statistics and render the committed SVG snapshots."""
+"""Collect public repository statistics and render the snapshot and its SVG views.
+
+The output directory receives data.json and the three SVG files, the same flat
+layout that the refresh workflow publishes on the project-statistics branch.
+"""
 
 from __future__ import annotations
 
@@ -301,8 +305,9 @@ def collect(config: dict, client: GitHubClient, cache_dir: Path, as_of: datetime
     return build_snapshot(repositories, window)
 
 
-def publish(snapshot: dict, root: Path = ROOT) -> None:
-    # Render all outputs before touching the published snapshot.
+def publish(snapshot: dict, output_dir: Path) -> None:
+    """Write data.json and the three SVG views into output_dir, all or nothing."""
+    # Render all outputs before touching any previous snapshot in output_dir.
     try:
         from render_project_statistics import render
     except ImportError as error:
@@ -311,11 +316,11 @@ def publish(snapshot: dict, root: Path = ROOT) -> None:
     required = {"overview.svg", "languages.svg", "activity.svg"}
     if not isinstance(rendered, dict) or set(rendered) != required:
         raise CollectionError("The renderer did not return the three expected SVG files.")
-    outputs = {root / "stats/data.json": json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n"}
+    outputs = {output_dir / "data.json": json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n"}
     for filename, content in rendered.items():
         if not isinstance(content, str) or not content.lstrip().startswith("<svg"):
             raise CollectionError(f"The renderer returned invalid SVG content for {filename}.")
-        outputs[root / "assets/project-statistics" / filename] = content
+        outputs[output_dir / filename] = content
     staged = []
     try:
         for destination, content in outputs.items():
@@ -348,6 +353,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--cache-dir", type=Path, default=Path(tempfile.gettempdir()) / "project-statistics")
     parser.add_argument("--input", type=Path, help="Render an existing snapshot without network access.")
     parser.add_argument("--as-of", help="Use an explicit ISO timestamp with a timezone offset.")
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "build/project-statistics",
+        help="Directory that receives data.json and the three SVG views (default: %(default)s).",
+    )
     arguments = parser.parse_args(argv)
     try:
         if arguments.input:
@@ -362,11 +371,11 @@ def main(argv: list[str] | None = None) -> int:
                 config, GitHubClient(os.environ.get("GITHUB_TOKEN")), arguments.cache_dir,
                 as_of, metadata,
             )
-        publish(snapshot)
+        publish(snapshot, arguments.output)
     except (CollectionError, KeyError, TypeError, ValueError, OverflowError, OSError) as error:
         print(f"Project statistics were not updated: {error}", file=sys.stderr)
         return 1
-    print("Updated project statistics and three SVG views.")
+    print(f"Wrote data.json and three SVG views to {arguments.output}.")
     return 0
 
 

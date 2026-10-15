@@ -1,18 +1,24 @@
-"""Checks for statistical boundaries, source scope, and failed-refresh preservation."""
+"""Checks for statistical boundaries, source scope, failed-refresh preservation,
+rendered output, and README/configuration consistency."""
 
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
 import types
 import unittest
 from unittest.mock import Mock, patch
+import xml.etree.ElementTree as ElementTree
 
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 import update_project_statistics as statistics
+
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
 class CalendarTests(unittest.TestCase):
@@ -217,20 +223,103 @@ class PublicationTests(unittest.TestCase):
 
     def test_invalid_render_does_not_overwrite_any_output(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            data = root / "stats/data.json"
-            data.parent.mkdir(parents=True)
+            output = Path(temporary)
+            data = output / "data.json"
             data.write_text("previous snapshot\n")
-            svg = root / "assets/project-statistics/overview.svg"
-            svg.parent.mkdir(parents=True)
+            svg = output / "overview.svg"
             svg.write_text("previous SVG\n")
             renderer = types.ModuleType("render_project_statistics")
             renderer.render = lambda snapshot: {"overview.svg": "<svg/>"}
             with patch.dict(sys.modules, {"render_project_statistics": renderer}):
                 with self.assertRaises(statistics.CollectionError):
-                    statistics.publish({}, root)
+                    statistics.publish({}, output)
             self.assertEqual(data.read_text(), "previous snapshot\n")
             self.assertEqual(svg.read_text(), "previous SVG\n")
+            self.assertEqual(sorted(path.name for path in output.iterdir()), ["data.json", "overview.svg"])
+
+    def test_snapshot_and_views_are_written_flat_into_the_output_directory(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "project-statistics"
+            snapshot = statistics.read_json(FIXTURES / "snapshot" / "data.json")
+            statistics.publish(snapshot, output)
+            self.assertEqual(sorted(path.name for path in output.iterdir()), [
+                "activity.svg", "data.json", "languages.svg", "overview.svg",
+            ])
+            self.assertEqual(json.loads((output / "data.json").read_text()), snapshot)
+
+
+class RendererTests(unittest.TestCase):
+    """tests/fixtures/snapshot holds a real published snapshot and its expected views.
+
+    After an intentional renderer change, regenerate the expected files and
+    review the SVG diff:
+
+        python3 scripts/update_project_statistics.py \\
+            --input tests/fixtures/snapshot/data.json --output tests/fixtures/snapshot
+    """
+
+    SNAPSHOT = FIXTURES / "snapshot"
+    VIEWS = ("overview.svg", "languages.svg", "activity.svg")
+
+    def published(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            statistics.publish(statistics.read_json(self.SNAPSHOT / "data.json"), output)
+            return {path.name: path.read_text(encoding="utf-8") for path in output.iterdir()}
+
+    def test_fixture_snapshot_renders_to_the_expected_files(self):
+        published = self.published()
+        self.assertEqual(sorted(published), sorted(("data.json", *self.VIEWS)))
+        for name, content in published.items():
+            with self.subTest(file=name):
+                expected = (self.SNAPSHOT / name).read_text(encoding="utf-8")
+                self.assertEqual(content, expected, f"{name} differs from the expected output; "
+                                 "see RendererTests for how to regenerate it.")
+
+    def test_views_are_well_formed_and_labelled(self):
+        namespace = "{http://www.w3.org/2000/svg}"
+        for name, content in self.published().items():
+            if name not in self.VIEWS:
+                continue
+            with self.subTest(file=name):
+                svg = ElementTree.fromstring(content)
+                self.assertEqual(svg.tag, f"{namespace}svg")
+                ids = {element.get("id") for element in svg.iter() if element.get("id")}
+                labels = svg.get("aria-labelledby", "").split()
+                self.assertTrue(labels, "the view has no aria-labelledby")
+                self.assertLessEqual(set(labels), ids, "aria-labelledby names a missing element")
+                self.assertTrue(svg.findtext(f"{namespace}title"), "the view has no title")
+                self.assertTrue(svg.findtext(f"{namespace}desc"), "the view has no description")
+
+
+class ReadmeConsistencyTests(unittest.TestCase):
+    def setUp(self):
+        self.readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.config = statistics.read_json(ROOT / "stats/projects.json")
+        self.owner = self.config["owner"]
+
+    def test_featured_repositories_match_the_readme(self):
+        pattern = rf"(?:github\.com|raw\.githubusercontent\.com)/{re.escape(self.owner)}/([A-Za-z0-9_.-]+)"
+        # The profile repository is named after its owner and is not a featured project.
+        linked = {name.casefold(): name for name in re.findall(pattern, self.readme)}
+        linked.pop(self.owner.casefold(), None)
+        configured = {name.casefold(): name for name in self.config["repositories"]}
+        problems = []
+        if missing := sorted(linked[key] for key in linked.keys() - configured.keys()):
+            problems.append(f"README links repositories missing from stats/projects.json: {missing}")
+        if unlinked := sorted(configured[key] for key in configured.keys() - linked.keys()):
+            problems.append(f"stats/projects.json lists repositories the README never links: {unlinked}")
+        self.assertFalse(problems, "; ".join(problems))
+
+    def test_readme_embeds_the_views_from_the_published_branch(self):
+        workflow = (ROOT / ".github/workflows/project-statistics.yml").read_text(encoding="utf-8")
+        match = re.search(r"^\s*STATISTICS_BRANCH:\s*(\S+)\s*$", workflow, re.MULTILINE)
+        self.assertIsNotNone(match, "the workflow does not define STATISTICS_BRANCH")
+        base = f"https://raw.githubusercontent.com/{self.owner}/{self.owner}/{match.group(1)}/"
+        for name in RendererTests.VIEWS:
+            with self.subTest(view=name):
+                url = f"{base}{name}"
+                self.assertTrue(f"({url})" in self.readme, f"README does not embed {url}")
 
 
 if __name__ == "__main__":

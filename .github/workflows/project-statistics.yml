@@ -1,4 +1,4 @@
-name: Refresh project statistics
+name: Project statistics
 
 on:
   schedule:
@@ -6,11 +6,19 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - main
     paths:
       - README.md
       - stats/projects.json
       - scripts/**
+      - tests/**
+      - .github/workflows/project-statistics.yml
+  pull_request:
+    paths:
+      - README.md
+      - stats/**
+      - scripts/**
+      - tests/**
       - .github/workflows/project-statistics.yml
 
 permissions: {}
@@ -19,9 +27,36 @@ concurrency:
   group: project-statistics-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  # The README embeds the SVG views from this branch.
+  STATISTICS_BRANCH: project-statistics
+
 jobs:
+  # Runs on every trigger, so a scheduled refresh never publishes from code
+  # whose tests fail and pull requests get the same checks.
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+
+      - name: Run the statistics tests
+        run: python3 -m unittest discover -s tests -v
+
   refresh:
+    needs: test
     if: >-
+      github.event_name != 'pull_request' &&
       github.ref_type == 'branch' &&
       (github.event_name == 'workflow_dispatch' ||
        github.ref_name == github.event.repository.default_branch)
@@ -43,17 +78,35 @@ jobs:
       - name: Collect and render project statistics
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/update_project_statistics.py --config stats/projects.json
+        run: >-
+          python3 scripts/update_project_statistics.py
+          --config stats/projects.json
+          --output "$RUNNER_TEMP/project-statistics"
 
-      - name: Commit updated snapshots
+      # One parentless commit, force-pushed: the default branch gets no refresh
+      # commits and the snapshot branch never accumulates history. A failed
+      # collection exits above and leaves the previous snapshot published.
+      - name: Publish the snapshot branch
+        if: github.ref_name == github.event.repository.default_branch
         env:
-          STATISTICS_BRANCH: ${{ github.ref_name }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |
-          git add -- stats/data.json assets/project-statistics
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Refresh project statistics'
-          git push origin "HEAD:refs/heads/$STATISTICS_BRANCH"
+          export GIT_INDEX_FILE="$RUNNER_TEMP/project-statistics.index"
+          git -C "$RUNNER_TEMP/project-statistics" --git-dir="$GITHUB_WORKSPACE/.git" --work-tree=. add --all .
+          tree=$(git write-tree)
+          commit=$(git commit-tree "$tree" -m 'Project statistics snapshot' -m "Generated from $GITHUB_SHA.")
+          git push --force origin "$commit:refs/heads/$STATISTICS_BRANCH"
+          git ls-tree --name-only "$commit"
+
+      # Manual runs on other branches are dry runs: nothing is published, and
+      # the rendered snapshot is kept as an artifact for review.
+      - name: Keep the dry-run snapshot
+        if: github.ref_name != github.event.repository.default_branch
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: project-statistics
+          path: ${{ runner.temp }}/project-statistics
+          if-no-files-found: error

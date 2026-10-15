@@ -10,11 +10,11 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 | [Embedded Linux](#embedded-linux) | **RISC-V & Arm:** [esp32s31-alpine](#alpine-linux-on-esp32-s31) · [alpine-riscv32](#alpine-linux-for-32-bit-risc-v) · [luckfox_rockchip_testing](#luckfox_rockchip_testing) · [openbouffalo_dev_container / BL808](#openbouffalo_dev_container) · [ESP32-S31 kernel work](#linux--esp32-s31-kernel-work) |
 | [Microcontrollers & firmware](#microcontrollers--firmware) | **ESP32 / ESP32-S3 / ESP32-C3:** [signal-generator experiments](https://github.com/naelolaiz/esp32_wifiAP_httpServer_signalGenerator) · [timers & DAC](https://github.com/naelolaiz/test_esp32_timers) · [PoC_PoV](https://github.com/naelolaiz/PoC_PoV) · [DMX512](https://github.com/naelolaiz/osc_to_dmx512) |
 | [Board support & build automation](#board-support--build-automation) | [PlatformIO ESP32-S31 support](#esp32-s31-support-for-platformio) · [Sipeed M1s / BL808 SDK](#m1s_bl808_linux_sdk) |
-| [Drivers & peripheral interfaces](#drivers--peripheral-interfaces) | **[PyMOPanel](#pymopanel)** · Linux GPIO/PWM · MPU6050 · FPGA UART/I²C · UDA1380 · AD9833 experiments. |
+| [Drivers & peripheral interfaces](#drivers--peripheral-interfaces) | **[PyMOPanel](#pymopanel)** · [Linux GPIO/PWM · MPU6050 · FPGA UART/I²C · UDA1380 · AD9833 experiments](#other-peripheral-interfaces). |
 | [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and mirror mounts. |
 | [Linux packaging & infrastructure](#linux-packaging--infrastructure) | **[gentoo-binhost](#gentoo-binhost)** — signed binary packages & build automation · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
-| [Room acoustics & audio DSP](#acoustic_spaces_simulator) | **[acoustic_spaces_simulator](#acoustic_spaces_simulator)** — room editing, reflection paths, spatial impulse responses, convolution and a 12-view gallery. |
+| [Room acoustics & audio DSP](#room-acoustics--audio-dsp) | **[acoustic_spaces_simulator](#acoustic_spaces_simulator)** — room editing, reflection paths, spatial impulse responses, convolution and a 12-view gallery. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
 | [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
@@ -77,7 +77,7 @@ Bringing Alpine Linux to the **ESP32-S31 Function-CoreBoard-1**, using Espressif
 
 CI builds the XIP kernel and bootloader artifacts, plus matched radio artifacts on the SMP/Wi-Fi branch.
 
-[Focused fixes](https://github.com/naelolaiz/linux/tree/review/esp32s31-fixes) · [SMP/Wi-Fi integration](https://github.com/naelolaiz/linux/tree/review/esp32s31-smp-wifi) · [Patch comparison](https://github.com/naelolaiz/linux/compare/dc0e3821e39bd7c169cefd274691e1998a844028...review/esp32s31-smp-wifi) · [Build verification](https://github.com/naelolaiz/linux/actions/runs/38437999688)
+[Focused fixes](https://github.com/naelolaiz/linux/tree/review/esp32s31-fixes) · [SMP/Wi-Fi integration](https://github.com/naelolaiz/linux/tree/review/esp32s31-smp-wifi) · [Patch comparison](https://github.com/naelolaiz/linux/compare/dc0e3821e39bd7c169cefd274691e1998a844028...review/esp32s31-smp-wifi) · [CI runs](https://github.com/naelolaiz/linux/actions/workflows/esp32s31.yml?query=branch%3Areview%2Fesp32s31-smp-wifi)
 
 #### [Alpine Linux for 32-bit RISC-V](https://github.com/naelolaiz/alpine-riscv32)
 
@@ -135,6 +135,8 @@ Python driver for **Matrix Orbital GLK19264-7T-1U LCD/keypad panels**, with seri
 
 [Panel interface](https://github.com/naelolaiz/PyMOPanel/blob/main/PyMOPanel/PyMOPanel.py) · [USB transport](https://github.com/naelolaiz/PyMOPanel/blob/main/PyMOPanel/usb_transport.py)
 
+### Other peripheral interfaces
+
 | Interface | Implementation |
 | :--- | :--- |
 | [Linux GPIO](https://github.com/naelolaiz/luckfox_rockchip_testing/blob/main/test_programs/peripherals_interface/GPIO.h) / [PWM](https://github.com/naelolaiz/luckfox_rockchip_testing/blob/main/test_programs/peripherals_interface/PWM.h) | C++ userspace interfaces through Linux sysfs, used by GPIO blink and PWM/servo experiments. |
@@ -176,7 +178,7 @@ An executable **C++11–26 language and standard-library reference**, with compi
 
 [Feature index](https://github.com/naelolaiz/gcc_updates/blob/main/features/TOPICS.md) · [Reference routes](https://github.com/naelolaiz/gcc_updates/blob/main/docs/reference-paths.md) · [Compiler CI matrix](https://github.com/naelolaiz/gcc_updates/blob/main/.github/workflows/ci.yml)
 
-## Audio & instrument control
+## Room acoustics & audio DSP
 
 ### [acoustic_spaces_simulator](https://github.com/naelolaiz/acoustic_spaces_simulator)
 
@@ -219,6 +221,8 @@ Room-acoustics simulation and auralisation toolkit with a **Qt/PySide6 editor, P
 
 *Measured-response example: BRAS CR2, LS1→MP1, from the [BRAS benchmark](https://doi.org/10.14279/depositonce-6726.3), CC BY-SA 4.0.*
 
+## Audio & instrument control
+
 | Project | What it does | Stack |
 | :--- | :--- | :--- |
 | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) | Audio A/B analysis: RMS, null-test residual and peak difference, through a Vamp plugin for hosts such as Sonic Visualiser, plus a Qt Quick interface. | C++17 · Qt Quick · CMake / CTest |
@@ -242,12 +246,12 @@ A satirical **sprint-management browser game** about backlog planning, interrupt
 
 Statistics for the featured projects, with support forks counted separately from source repositories.
 
-[![Project overview: featured repositories, source repositories, support forks, detected languages and workflow presence](assets/project-statistics/overview.svg)](stats/README.md)
+[![Project overview: featured repositories, source repositories, support forks, detected languages and workflow presence](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/overview.svg)](stats/README.md)
 
-[![Language mix across source repositories, measured by GitHub-detected code bytes](assets/project-statistics/languages.svg)](stats/README.md)
+[![Language mix across source repositories, measured by GitHub-detected code bytes](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/languages.svg)](stats/README.md)
 
-[![Monthly non-merge commit activity across source repositories' default branches; current month is partial](assets/project-statistics/activity.svg)](stats/README.md)
+[![Monthly non-merge commit activity across source repositories' default branches; current month is partial](https://raw.githubusercontent.com/naelolaiz/naelolaiz/project-statistics/activity.svg)](stats/README.md)
 
-[Snapshot data](stats/data.json) · [Metrics & refresh details](stats/README.md)
+[Snapshot data](https://github.com/naelolaiz/naelolaiz/blob/project-statistics/data.json) · [Metrics & refresh details](stats/README.md)
 
 [Browse all repositories →](https://github.com/naelolaiz?tab=repositories)
