@@ -14,12 +14,13 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 | [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and mirror mounts. |
 | [Linux packaging & infrastructure](#linux-packaging--infrastructure) | **[gentoo-binhost](#gentoo-binhost)** — signed binary packages & build automation · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
-| [Room acoustics & audio DSP](#room-acoustics--audio-dsp) | **[acoustic_spaces_simulator](#acoustic_spaces_simulator)** — room editing, reflection paths, spatial impulse responses, convolution and a 12-view gallery. |
+| [Room acoustics & audio DSP](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — room-acoustics simulator on PyPI: CAD/BIM rooms, ray tracing and a wave solver, spatial impulse responses, measurements and a results gallery. |
+| [Music production](#music-production) | **[Ferrous Loom](#ferrous-loom)** — pattern-based music studio in Rust: step sequencer, piano roll with harmony helpers, playlist, MIDI and WAV export. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
 | [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
 
-**Languages:** VHDL, Verilog, C / C++, Python, Shell<br>
+**Languages:** VHDL, Verilog, C / C++, Python, Rust, Shell<br>
 **Platforms & tools:** GHDL, Yosys, RISC-V, Linux, ESP32, Qt, Podman / Docker, GitHub Actions
 
 ## FPGA & digital design
@@ -180,16 +181,24 @@ An executable **C++11–26 language and standard-library reference**, with compi
 
 ## Room acoustics & audio DSP
 
-### [acoustic_spaces_simulator](https://github.com/naelolaiz/acoustic_spaces_simulator)
+### [acoustic-spaces](https://github.com/naelolaiz/acoustic-spaces)
 
-Room-acoustics simulation and auralisation toolkit with a **Qt/PySide6 editor, Python API and C++ processing core**. Load or draw a room, place sound sources and listeners, generate impulse responses and listen through convolution.
+Open-source room-acoustics simulator and auralisation toolkit in the spirit of CATT-Acoustic and ODEON, with a **Qt editor, command line, Python API and C++ core**. Load a 3D model or draw a room, place sources and listeners, compute impulse responses and listen to the result. Published on PyPI, with wheels for Linux, macOS and Windows on CPython 3.10–3.14:
 
-- **Simulation:** ray tracing or image sources for early reflections, stochastic late reverberation, edge diffraction and an optional low-frequency wave solver.
-- **Spatial audio:** mono, binaural, Ambisonics and loudspeaker impulse responses, offline/real-time convolution and OSC head tracking.
-- **Analysis:** octave-band decay parameters, arrival directions, source directivity, audience coverage/STI maps, sweep measurements and comparisons with measured rooms.
-- **Verification:** cross-platform tests, analytic reference cases and a published validation report documenting results and current limits.
+```sh
+pip install "acoustic-spaces[viz,gui]"
+```
 
-[Setup & examples](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/README.md) · [Validation report](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic_spaces_simulator/tree/main/examples) · [Changelog](https://github.com/naelolaiz/acoustic_spaces_simulator/blob/main/CHANGELOG.md)
+- **Rooms:** OBJ, DXF, glTF, STL, IFC, Collada and SketchUp imports or floor-plan drawing, a material database with CATT-Acoustic and ODEON libraries, doors between rooms, audience areas, directional, line, surface and array sources, and a leak finder for open models.
+- **Simulation:** ray-traced early reflections with edge diffraction, a stochastic late tail and a wave solver for the lowest bands, on CPU or GPU. ISO 3382-1 parameters, STI and echo criteria per source and listener, plus coverage maps across the audience.
+- **Spatial audio:** mono, binaural, Ambisonics (AmbiX) and loudspeaker impulse responses, offline and real-time convolution, head tracking and virtual walkthroughs rendered to video.
+- **Measurements & verification:** sine-sweep measurement of real rooms, JND-based comparison with the model and absorption fitting. Results are validated against theory, pyroomacoustics and measured rooms in a published report.
+
+[PyPI](https://pypi.org/project/acoustic-spaces/) · [Getting started](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/getting-started.md) · [Validation report](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/examples.md) · [Releases](https://github.com/naelolaiz/acoustic-spaces/releases) · [Changelog](https://github.com/naelolaiz/acoustic-spaces/blob/main/CHANGELOG.md)
+
+[![Beethoven's 8th in the virtual concert hall: the orchestra on stage and a seat in the middle of the stalls, with the first reflections from a violin](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/orchestra_video.png)](https://www.youtube.com/watch?v=c0-5F-iNhIE)
+
+*Beethoven's 8th symphony in the concert-hall example: 61 anechoic tracks, one per instrument, heard binaurally from the stalls. Select the image to watch the video.*
 
 #### Acoustic simulation gallery
 
@@ -197,29 +206,43 @@ Room-acoustics simulation and auralisation toolkit with a **Qt/PySide6 editor, P
 
 | Qt editor & concert-hall results | Floor-plan editing |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor.png" alt="Qt editor showing a concert-hall model, source properties, reflection paths and simulation results" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/plan.png" alt="Floor-plan editor showing draggable corners, wall lengths, sources and listeners" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/plan.png) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/editor.png" alt="Qt editor showing a concert-hall model, source properties, reflection paths and simulation results" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/editor.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/plan.png" alt="Floor-plan editor showing draggable corners, wall lengths, sources and listeners" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/plan.png) |
 
 | Church model & reflection paths | Animated sound particles |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/church_paths.png" alt="Church model with direct sound and reflection paths through third order" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/church_paths.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/particles.gif" alt="Animated sound particles propagating through the concert hall, colored by level at 1 kHz" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/particles.gif) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/church_paths.png" alt="Church model with direct sound and reflection paths through third order" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/church_paths.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/particles.gif" alt="Animated sound particles propagating through the concert hall, colored by level at 1 kHz" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/particles.gif) |
 
 | Speech-intelligibility overlay in the editor | Audience coverage map |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor_map.png" alt="Speech transmission index overlaid on the lecture-hall model in the Qt editor" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/editor_map.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/coverage.png" alt="Top-down speech transmission index map across 176 audience positions" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/coverage.png) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/editor_map.png" alt="Speech transmission index overlaid on the lecture-hall model in the Qt editor" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/editor_map.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/coverage.png" alt="Top-down speech transmission index map across 176 audience positions" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/coverage.png) |
 
 | Echogram & octave-band reverberation | Arrival directions |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/response.png" alt="Simulated concert-hall echogram and reverberation decay curves by octave band" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/response.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directions.png" alt="Early arrival directions and late directional energy at a listener position" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directions.png) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/response.png" alt="Simulated concert-hall echogram and reverberation decay curves by octave band" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/response.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/directions.png" alt="Early arrival directions and late directional energy at a listener position" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/directions.png) |
 
 | Source-directivity patterns | Diffraction around a corner |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directivity.png" alt="Horizontal and vertical source-directivity polar patterns across octave bands" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/directivity.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/diffraction.png" alt="Sound levels around a gallery corner, with and without edge diffraction" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/diffraction.png) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/directivity.png" alt="Horizontal and vertical source-directivity polar patterns across octave bands" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/directivity.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/diffraction.png" alt="Sound levels around a gallery corner, with and without edge diffraction" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/diffraction.png) |
 
 | Low-frequency wave-model comparison | Measured-room response analysis |
 | :---: | :---: |
-| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/wave.png" alt="Low-frequency transfer functions comparing modal theory, the wave solver and geometric rays" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/wave.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/measured.png" alt="Measured BRAS CR2 seminar-room impulse response with noise-floor estimates and corrected octave-band decay curves" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic_spaces_simulator/main/docs/images/measured.png) |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/wave.png" alt="Low-frequency transfer functions comparing modal theory, the wave solver and geometric rays" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/wave.png) | [<img src="https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/measured.png" alt="Measured BRAS CR2 seminar-room impulse response with noise-floor estimates and corrected octave-band decay curves" width="370">](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/measured.png) |
 
 *Measured-response example: BRAS CR2, LS1→MP1, from the [BRAS benchmark](https://doi.org/10.14279/depositonce-6726.3), CC BY-SA 4.0.*
+
+## Music production
+
+### [Ferrous Loom](https://github.com/naelolaiz/ferrous-loom)
+
+An open-source, **pattern-based music studio written in Rust**, inspired by the FL Studio workflow: build patterns in a step sequencer or piano roll, arrange them in a playlist and learn harmony along the way. Early development; runs on Linux, macOS and Windows.
+
+- **Sequencing:** channel rack with drum kit, sampler and synth (drop in WAV files for custom sounds), a piano roll with key highlighting, chord drawing and naming, inversions, arpeggios and a velocity lane, and a playlist for arranging clips into a song.
+- **Harmony:** project key and time signature, I–vii° chord keys colour-coded as home, away or tension, suggested next chords, and a library of 78 harmony styles and 49 rhythms with 16 public-domain demo songs.
+- **Audio & MIDI:** real-time engine on `cpal`, `egui` desktop interface, MIDI input and output through `midir`, recording into patterns, `.mid` and WAV export, undo/redo and `.loom` project files. CI attaches builds for all three systems.
+
+[Build & run](https://github.com/naelolaiz/ferrous-loom#build-and-run) · [Project layout](https://github.com/naelolaiz/ferrous-loom#project-layout) · [CI builds](https://github.com/naelolaiz/ferrous-loom/actions)
+
+[![Ferrous Loom desktop application showing the playlist and the harmony keys](https://raw.githubusercontent.com/naelolaiz/ferrous-loom/main/screenshots/step-8-harmony-keys.png)](https://github.com/naelolaiz/ferrous-loom)
 
 ## Audio & instrument control
 
@@ -238,7 +261,7 @@ Audio and WhatsApp voice-message transcription through a **Python CLI, Qt deskto
 
 ### [Sprint to Nowhere](https://github.com/naelolaiz/sprint_to_nowhere)
 
-A satirical **sprint-management browser game** about backlog planning, interruptions, technical debt and burnout. Built with React, Vite and Tailwind CSS, with automated GitHub Pages deployment. The goal is to complete at least ten sprints while keeping technical debt low.
+A satirical **sprint-management browser game** about backlog planning, interruptions, technical debt and burnout. Built with React, Vite and Tailwind CSS, with automated GitHub Pages deployment, and playable in English and Spanish. The goal is to complete at least ten sprints while keeping technical debt low.
 
 [Play online](https://naelolaiz.github.io/sprint_to_nowhere/) · [Game mechanics](https://github.com/naelolaiz/sprint_to_nowhere/blob/main/src/game/mechanics.js)
 
