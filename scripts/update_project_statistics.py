@@ -175,10 +175,12 @@ def cached_repository(owner: str, name: str, branch: str, cache_dir: Path) -> Pa
     run_git(["check-ref-format", ref])
     url = f"https://github.com/{owner}/{name}.git"
     if repository.exists():
-        if run_git(["rev-parse", "--is-bare-repository"], cwd=repository).strip() != "true":
+        git_dir = ["--git-dir", str(repository.resolve())]
+        if run_git([*git_dir, "rev-parse", "--is-bare-repository"], cwd=repository).strip() != "true":
             raise CollectionError(f"The repository cache is not bare: {name}.")
         # Fetch the expected public URL directly; never trust a cached remote URL.
-        run_git(["fetch", "--filter=blob:none", "--no-tags", url, f"+{ref}:{ref}"], cwd=repository)
+        run_git([*git_dir, "fetch", "--filter=blob:none", "--no-tags",
+                 url, f"+{ref}:{ref}"], cwd=repository)
     else:
         repository.parent.mkdir(parents=True, exist_ok=True)
         run_git([
@@ -188,17 +190,20 @@ def cached_repository(owner: str, name: str, branch: str, cache_dir: Path) -> Pa
     return repository
 
 
-def git_activity(repository: Path, branch: str, window: ActivityWindow) -> dict:
+def git_activity(repository: Path, branch: str, window: ActivityWindow, *, bare: bool = False) -> dict:
     ref = f"refs/heads/{branch}"
+    git_dir = ["--git-dir", str(repository.resolve())] if bare else []
     # No --since traversal filter: dates need not be monotonic along Git history.
-    output = run_git(["log", "--no-merges", "--format=%ct", ref], cwd=repository)
+    output = run_git([*git_dir, "log", "--no-merges", "--format=%ct", ref], cwd=repository)
     try:
         timestamps = [int(value) for value in output.splitlines()]
     except ValueError:
         raise CollectionError("Git returned invalid commit timestamps.") from None
-    last_commit = aware_datetime(run_git(["show", "-s", "--format=%cI", ref], cwd=repository).strip())
+    last_commit = aware_datetime(run_git(
+        [*git_dir, "show", "-s", "--format=%cI", ref], cwd=repository,
+    ).strip())
     tree = run_git([
-        "ls-tree", "-r", "--name-only", "-z", ref, "--", ".github/workflows",
+        *git_dir, "ls-tree", "-r", "--name-only", "-z", ref, "--", ".github/workflows",
     ], cwd=repository)
     workflow_files = sorted(
         name for name in tree.split("\0") if name
@@ -298,7 +303,7 @@ def collect(config: dict, client: GitHubClient, cache_dir: Path, as_of: datetime
             try:
                 repository["languages"] = client.languages(owner, name)
                 cached = cached_repository(owner, name, repository["default_branch"], cache_dir)
-                repository.update(git_activity(cached, repository["default_branch"], window))
+                repository.update(git_activity(cached, repository["default_branch"], window, bare=True))
             except CollectionError as error:
                 raise CollectionError(f"{name}: {error}") from error
         repositories.append(repository)

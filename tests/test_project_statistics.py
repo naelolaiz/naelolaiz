@@ -161,12 +161,16 @@ class GitHistoryTests(unittest.TestCase):
             ])
 
     def test_merges_are_excluded_but_nonmonotonic_ancestors_are_counted(self):
-        with tempfile.TemporaryDirectory() as temporary:
+        with tempfile.TemporaryDirectory() as temporary, patch.dict(statistics.os.environ, {
+            "GIT_CONFIG_COUNT": "1", "GIT_CONFIG_KEY_0": "safe.bareRepository",
+            "GIT_CONFIG_VALUE_0": "explicit",
+        }):
             repository = Path(temporary)
 
             def git(*arguments, input=None):
                 return subprocess.run(
-                    ["git", *arguments], cwd=repository, input=input, text=True,
+                    ["git", "--git-dir", str(repository), *arguments],
+                    cwd=repository, input=input, text=True,
                     capture_output=True, check=True,
                 ).stdout.strip()
 
@@ -179,7 +183,7 @@ class GitHistoryTests(unittest.TestCase):
                     "GIT_COMMITTER_NAME": "test", "GIT_COMMITTER_EMAIL": "test@example.invalid",
                     "GIT_AUTHOR_DATE": date, "GIT_COMMITTER_DATE": date,
                 }
-                arguments = ["git", "commit-tree", tree]
+                arguments = ["git", "--git-dir", str(repository), "commit-tree", tree]
                 for parent in parents:
                     arguments.extend(["-p", parent])
                 with patch.dict(statistics.os.environ, environment):
@@ -195,11 +199,38 @@ class GitHistoryTests(unittest.TestCase):
             window = statistics.activity_window(
                 statistics.aware_datetime("2026-10-08T20:00:00Z"), "Europe/Madrid", 12,
             )
-            result = statistics.git_activity(repository, "main", window)
+            result = statistics.git_activity(repository, "main", window, bare=True)
             self.assertEqual(result["commits_by_month"]["2026-10"], 2)
             self.assertEqual(sum(result["commits_by_month"].values()), 2)
             self.assertEqual(result["last_commit_at"], "2026-10-09T12:00:00+00:00")
             self.assertEqual(result["workflow_files"], [])
+
+    def test_cached_repository_can_be_refreshed_with_explicit_bare_repository_safety(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "sources" / "source.git"
+            source.mkdir(parents=True)
+            subprocess.run(["git", "init", "--initial-branch=main"], cwd=source,
+                           capture_output=True, check=True)
+            (source / "fixture.txt").write_text("fixture\n")
+            subprocess.run(["git", "add", "fixture.txt"], cwd=source, capture_output=True, check=True)
+            subprocess.run(["git", "-c", "user.name=test", "-c", "user.email=test@example.invalid",
+                            "commit", "-m", "fixture"], cwd=source, capture_output=True, check=True)
+            with patch.dict(statistics.os.environ, {
+                "GIT_CONFIG_COUNT": "2",
+                "GIT_CONFIG_KEY_0": "safe.bareRepository", "GIT_CONFIG_VALUE_0": "explicit",
+                "GIT_CONFIG_KEY_1": f"url.{source.parent.as_uri()}/.insteadOf",
+                "GIT_CONFIG_VALUE_1": "https://github.com/example/",
+            }):
+                cache = statistics.cached_repository("example", "source", "main", root / "cache")
+                self.assertEqual(
+                    statistics.cached_repository("example", "source", "main", root / "cache"), cache,
+                )
+                self.assertEqual(
+                    statistics.run_git(
+                        ["--git-dir", str(cache), "rev-parse", "--is-bare-repository"],
+                    ).strip(), "true",
+                )
 
 
 class PublicationTests(unittest.TestCase):
