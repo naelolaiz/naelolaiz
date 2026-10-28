@@ -1,5 +1,21 @@
-Tinkering with FPGAs, embedded systems, Linux, audio DSP, 3D printing.<br>
-Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(of side projects<sub>(...)</sub>)</sub>)</sub>
+# Projects & experiments
+
+A collection of open-source tools, simulations and hardware experiments, from digital logic and embedded Linux to acoustics and music software.
+
+**Areas:** FPGA & digital design · Embedded systems & RISC-V · Room acoustics & spatial audio · Music production · Linux infrastructure · 3D design
+
+**Technologies:** VHDL · Verilog · C/C++ · Python · Rust · JavaScript · Shell · Linux · Qt · GHDL · Yosys · GitHub Actions
+
+[Explore the project index](#project-index) · [View project statistics](#project-statistics) · [Browse all repositories](https://github.com/naelolaiz?tab=repositories)
+
+## Featured work
+
+| Project | Highlights |
+| :--- | :--- |
+| [learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu) | Paired VHDL/Verilog designs, RISC-V CPUs and a small SoC, with testbenches and a CI-generated gallery. |
+| [Alpine Linux on ESP32-S31](#alpine-linux-on-esp32-s31) | RISC-V Linux bring-up on hardware, with an Alpine root filesystem, networking and signed packages. |
+| [acoustic-spaces](#acoustic-spaces) | Room simulation, spatial impulse responses and auralisation, with a Qt editor, measurements and published validation. |
+| [Ferrous Lineup](#ferrous-lineup) | A Rust music studio with an automatic backing band, sequencing, harmony tools and a companion book. |
 
 ## Project index
 
@@ -15,13 +31,10 @@ Tools, experiments, learning projects. Side projects<sub>(of side projects<sub>(
 | [Linux packaging & infrastructure](#linux-packaging--infrastructure) | **[gentoo-binhost](#gentoo-binhost)** — signed binary packages & build automation · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
 | [Room acoustics & audio DSP](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — room-acoustics simulator on PyPI: CAD/BIM rooms, ray tracing and a wave solver, spatial impulse responses, measurements and a results gallery. |
-| [Music production](#music-production) | **[Ferrous Loom](#ferrous-loom)** — pattern-based music studio in Rust: step sequencer, piano roll with harmony helpers, playlist, MIDI and WAV export. |
+| [Music production](#music-production) | **[Ferrous Lineup](#ferrous-lineup)** — Rust music studio with a backing band, sequencer, harmony tools and a companion book. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
 | [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
-
-**Languages:** VHDL, Verilog, C / C++, Python, Rust, Shell<br>
-**Platforms & tools:** GHDL, Yosys, RISC-V, Linux, ESP32, Qt, Podman / Docker, GitHub Actions
 
 ## FPGA & digital design
 
@@ -190,17 +203,20 @@ pip install "acoustic-spaces[viz,gui]"
 ```
 
 - **Rooms:** OBJ, DXF, glTF, STL, IFC, Collada and SketchUp imports or floor-plan drawing, a material database with CATT-Acoustic and ODEON libraries, doors between rooms, audience areas, directional, line, surface and array sources, and a leak finder for open models.
-- **Simulation:** ray-traced early reflections with edge diffraction, a stochastic late tail and a wave solver for the lowest bands, on CPU or GPU. ISO 3382-1 parameters, STI and echo criteria per source and listener, plus coverage maps across the audience.
+- **Simulation:** ray-traced early reflections with edge diffraction, pressure-based summation at low frequencies, a stochastic late tail and a wave solver for the lowest bands, on CPU or GPU. ISO 3382-1 parameters, STI and echo criteria per source and listener, plus coverage maps across the audience.
 - **Spatial audio:** mono, binaural, Ambisonics (AmbiX) and loudspeaker impulse responses, offline and real-time convolution, head tracking and virtual walkthroughs rendered to video.
-- **Measurements & verification:** sine-sweep measurement of real rooms, JND-based comparison with the model and absorption fitting. Results are validated against theory, pyroomacoustics and measured rooms in a published report.
+- **Measurements & verification:** sine-sweep measurement of real rooms, JND-based comparison with the model and absorption fitting. A published report compares results against theory, pyroomacoustics and measured rooms, and documents known limitations.
 
-[PyPI](https://pypi.org/project/acoustic-spaces/) · [Getting started](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/getting-started.md) · [Validation report](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/examples.md) · [Releases](https://github.com/naelolaiz/acoustic-spaces/releases) · [Changelog](https://github.com/naelolaiz/acoustic-spaces/blob/main/CHANGELOG.md)
+The 4.0.1 source release improves edge diffraction and reflection handling and updates the measured-room checks; the version available on PyPI may differ from the latest source release.
+
+[PyPI](https://pypi.org/project/acoustic-spaces/) · [Getting started](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/getting-started.md) · [Validation & known issues](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/examples.md) · [Releases](https://github.com/naelolaiz/acoustic-spaces/releases) · [Changelog](https://github.com/naelolaiz/acoustic-spaces/blob/main/CHANGELOG.md)
 
 [![Beethoven's 8th in the virtual concert hall: the orchestra on stage and a seat in the middle of the stalls, with the first reflections from a violin](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/orchestra_video.png)](https://www.youtube.com/watch?v=c0-5F-iNhIE)
 
 *Beethoven's 8th symphony in the concert-hall example: 61 anechoic tracks, one per instrument, heard binaurally from the stalls. Select the image to watch the video.*
 
-#### Acoustic simulation gallery
+<details>
+<summary>Acoustic simulation gallery — editor, visualisations and measurements</summary>
 
 *Select an image to open its full-size view.*
 
@@ -230,19 +246,24 @@ pip install "acoustic-spaces[viz,gui]"
 
 *Measured-response example: BRAS CR2, LS1→MP1, from the [BRAS benchmark](https://doi.org/10.14279/depositonce-6726.3), CC BY-SA 4.0.*
 
+</details>
+
 ## Music production
 
-### [Ferrous Loom](https://github.com/naelolaiz/ferrous-loom)
+### [Ferrous Lineup](https://github.com/naelolaiz/ferrous-lineup)
 
-An open-source, **pattern-based music studio written in Rust**, inspired by the FL Studio workflow: build patterns in a step sequencer or piano roll, arrange them in a playlist and learn harmony along the way. Early development; runs on Linux, macOS and Windows.
+An open-source **music studio and backing band written in Rust**. Enter a song's chords, choose a style and play it in different keys and tempos, or write and arrange parts by hand. Runs on Linux, macOS and Windows.
 
-- **Sequencing:** channel rack with drum kit, sampler and synth (drop in WAV files for custom sounds), a piano roll with key highlighting, chord drawing and naming, inversions, arpeggios and a velocity lane, and a playlist for arranging clips into a song.
-- **Harmony:** project key and time signature, I–vii° chord keys colour-coded as home, away or tension, suggested next chords, and a library of 78 harmony styles and 49 rhythms with 16 public-domain demo songs.
-- **Audio & MIDI:** real-time engine on `cpal`, `egui` desktop interface, MIDI input and output through `midir`, recording into patterns, `.mid` and WAV export, undo/redo and `.loom` project files. CI attaches builds for all three systems.
+- **Backing band & practice:** chord sheets, styles and rhythms drive piano, bass, drums and other instruments, with variations, an optional soloist, loops and a metronome. The library includes hundreds of demo songs.
+- **Writing & harmony:** a playlist, step sequencer, piano roll, style editor and mixer, with chord naming and suggestions, ear training, pitch-class sets, twelve-tone rows and micromodes.
+- **Audio & MIDI:** MIDI input and output, analysis of imported recordings, PDF lead sheets, and WAV, MIDI and MP4 export. Current source uses `.lineup` project files; releases provide builds for all three platforms.
+- **Companion book:** an online and downloadable guide to using the studio and building it in Rust.
 
-[Build & run](https://github.com/naelolaiz/ferrous-loom#build-and-run) · [Project layout](https://github.com/naelolaiz/ferrous-loom#project-layout) · [CI builds](https://github.com/naelolaiz/ferrous-loom/actions)
+[Book & application guide](https://naelolaiz.github.io/ferrous-lineup/) · [Build & run](https://github.com/naelolaiz/ferrous-lineup#build-and-run) · [Releases](https://github.com/naelolaiz/ferrous-lineup/releases) · [Project layout](https://github.com/naelolaiz/ferrous-lineup#project-layout)
 
-[![Ferrous Loom desktop application showing the playlist and the harmony keys](https://raw.githubusercontent.com/naelolaiz/ferrous-loom/main/screenshots/step-8-harmony-keys.png)](https://github.com/naelolaiz/ferrous-loom)
+| Studio & harmony keys | Chord sheet |
+| :---: | :---: |
+| [<img src="https://raw.githubusercontent.com/naelolaiz/ferrous-lineup/main/screenshots/main-window.png" alt="Ferrous Lineup playing a song, with the playlist, channel rack and harmony keys" width="370">](https://github.com/naelolaiz/ferrous-lineup) | [<img src="https://raw.githubusercontent.com/naelolaiz/ferrous-lineup/main/screenshots/chord-sheet.png" alt="Ferrous Lineup chord sheet showing a song's chords and Roman numerals" width="370">](https://github.com/naelolaiz/ferrous-lineup) |
 
 ## Audio & instrument control
 
@@ -253,7 +274,7 @@ An open-source, **pattern-based music studio written in Rust**, inspired by the 
 
 ### [VoxPad](https://github.com/naelolaiz/voxpad)
 
-Audio and WhatsApp voice-message transcription through a **Python CLI, Qt desktop application and browser interface**. Uses Whisper-based speech recognition, with local inference available.
+Audio and WhatsApp voice-message transcription through a **Python CLI, Qt desktop application and browser interface**. Whisper-based recognition runs locally by default; the CLI and desktop app also offer opt-in remote transcription that uploads audio.
 
 [Documentation](https://github.com/naelolaiz/voxpad/blob/main/README.md) · [Browser application](https://naelolaiz.github.io/voxpad/)
 

@@ -28,7 +28,7 @@ A local refresh uses Python 3 and Git, and writes to `build/project-statistics/`
 python3 scripts/update_project_statistics.py --config stats/projects.json
 ```
 
-The optional `GITHUB_TOKEN` environment variable raises the GitHub API allowance. The workflow supplies its repository token automatically. Git history is cached outside the checkout; only aggregate metrics are published, with no author names or email addresses.
+The optional `GITHUB_TOKEN` environment variable raises the GitHub API allowance. The workflow supplies its repository token automatically. Git history is cached outside the checkout, and bare caches are accessed explicitly so the collector works with Git's `safe.bareRepository=explicit` setting. Only aggregate metrics are published, with no author names or email addresses.
 
 To redraw the charts from an existing snapshot, such as the published `data.json`:
 
