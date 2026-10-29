@@ -1,10 +1,10 @@
 # Projects & experiments
 
-A collection of open-source tools, simulations and hardware experiments, from digital logic and embedded Linux to acoustics and music software.
+A collection of open-source tools, simulations and hardware experiments, from digital logic and embedded Linux to real-time scheduling, acoustics and music software.
 
-**Areas:** FPGA & digital design · Embedded systems & RISC-V · Room acoustics & spatial audio · Music production · Linux infrastructure · 3D design
+**Areas:** FPGA & digital design · Embedded systems & RISC-V · Linux scheduling & real-time systems · Room & outdoor acoustics · Music production · Linux infrastructure · 3D design
 
-**Technologies:** VHDL · Verilog · C/C++ · Python · Rust · JavaScript · Shell · Linux · Qt · GHDL · Yosys · GitHub Actions
+**Technologies:** VHDL · Verilog · C/C++ (C++11–26) · Python · Rust · JavaScript · Shell · Linux · Qt · CMake/CTest · GHDL · Yosys · Podman · OpenSCAD · GitHub Actions
 
 [Explore the project index](#project-index) · [View project statistics](#project-statistics) · [Browse all repositories](https://github.com/naelolaiz?tab=repositories)
 
@@ -12,41 +12,42 @@ A collection of open-source tools, simulations and hardware experiments, from di
 
 | Project | Highlights |
 | :--- | :--- |
-| [learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu) | Paired VHDL/Verilog designs, RISC-V CPUs and a small SoC, with testbenches and a CI-generated gallery. |
-| [Alpine Linux on ESP32-S31](#alpine-linux-on-esp32-s31) | RISC-V Linux bring-up on hardware, with an Alpine root filesystem, networking and signed packages. |
-| [acoustic-spaces](#acoustic-spaces) | Room simulation, spatial impulse responses and auralisation, with a Qt editor, measurements and published validation. |
-| [Ferrous Lineup](#ferrous-lineup) | A Rust music studio with an automatic backing band, sequencing, harmony tools and a companion book. |
+| [learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu) | Paired VHDL/Verilog designs, single-cycle and pipelined RV32I CPUs, a memory-mapped SoC with SIMD/FIR accelerators, and a CI-generated schematic/waveform gallery. |
+| [Alpine Linux on ESP32-S31](#alpine-linux-on-esp32-s31) | 32-bit RISC-V Linux bring-up on hardware and in QEMU, with a 19-patch `aports` series, signed `apk` repository on GitHub Pages, Ethernet, native Wi-Fi and SSH. |
+| [linux-scheduling-lab](#linux-scheduling-lab) | Measured Linux scheduling experiments in C++20 and Python: synthesized audio/video workloads, `SCHED_FIFO`/`RR`/`DEADLINE`, priority inheritance, `mlock`, cgroup v2 and offline HTML reports. |
+| [acoustic-spaces](#acoustic-spaces) | Indoor and outdoor acoustics simulator on PyPI, with a Qt editor, ray tracing, edge diffraction, wave and parabolic-equation solvers on CPU/GPU, four binaural demos and published validation. |
+| [Ferrous Lineup](#ferrous-lineup) | Five-crate Rust music studio with an automatic backing band, 300+ demo songs, 171 styles, audio-to-chord transcription, MP4/PDF/WAV/MIDI export, and a bilingual companion book. |
 
 ## Project index
 
 | Explore | Projects & focus |
 | :--- | :--- |
-| **[FPGA & digital design](#fpga--digital-design)** | **[learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu)** — paired VHDL/Verilog, RISC-V CPUs and SoC, peripherals, testbenches and CI diagrams. |
-| [HDL tooling](#hdltools--hdl-toolchain--waveform-rendering) | [hdltools / waveview](#hdltools--hdl-toolchain--waveform-rendering) — simulation, synthesis and waveform rendering. |
-| [Embedded Linux](#embedded-linux) | **RISC-V & Arm:** [esp32s31-alpine](#alpine-linux-on-esp32-s31) · [alpine-riscv32](#alpine-linux-for-32-bit-risc-v) · [luckfox_rockchip_testing](#luckfox_rockchip_testing) · [openbouffalo_dev_container / BL808](#openbouffalo_dev_container) · [ESP32-S31 kernel work](#linux--esp32-s31-kernel-work) |
+| **[FPGA & digital design](#fpga--digital-design)** | **[learning_fpga](#learning_fpga--from-digital-logic-to-a-risc-v-cpu)** — paired VHDL/Verilog, RV32I CPUs and SoC, VGA/audio/serial peripherals, testbenches and CI diagrams. |
+| [HDL tooling](#hdltools--hdl-toolchain--waveform-rendering) | [hdltools / waveview](#hdltools--hdl-toolchain--waveform-rendering) — containerized simulation, synthesis and headless waveform rendering. |
+| [Embedded Linux](#embedded-linux) | **RISC-V & Arm:** [esp32s31-alpine](#alpine-linux-on-esp32-s31) · [alpine-riscv32](#alpine-linux-for-32-bit-risc-v) · [ESP32-S31 kernel work](#linux--esp32-s31-kernel-work) · [luckfox_rockchip_testing](#luckfox_rockchip_testing) · [openbouffalo_dev_container / BL808](#openbouffalo_dev_container) |
 | [Microcontrollers & firmware](#microcontrollers--firmware) | **ESP32 / ESP32-S3 / ESP32-C3:** [signal-generator experiments](https://github.com/naelolaiz/esp32_wifiAP_httpServer_signalGenerator) · [timers & DAC](https://github.com/naelolaiz/test_esp32_timers) · [PoC_PoV](https://github.com/naelolaiz/PoC_PoV) · [DMX512](https://github.com/naelolaiz/osc_to_dmx512) |
 | [Board support & build automation](#board-support--build-automation) | [PlatformIO ESP32-S31 support](#esp32-s31-support-for-platformio) · [Sipeed M1s / BL808 SDK](#m1s_bl808_linux_sdk) |
-| [Drivers & peripheral interfaces](#drivers--peripheral-interfaces) | **[PyMOPanel](#pymopanel)** · [Linux GPIO/PWM · MPU6050 · FPGA UART/I²C · UDA1380 · AD9833 experiments](#other-peripheral-interfaces). |
-| [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and mirror mounts. |
-| [Linux packaging & infrastructure](#linux-packaging--infrastructure) | **[gentoo-binhost](#gentoo-binhost)** — signed binary packages & build automation · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
-| [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — language/library examples, GCC/Clang, sanitizers and CI. |
-| [Room acoustics & audio DSP](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — room-acoustics simulator on PyPI: CAD/BIM rooms, ray tracing and a wave solver, spatial impulse responses, measurements and a results gallery. |
-| [Music production](#music-production) | **[Ferrous Lineup](#ferrous-lineup)** — Rust music studio with a backing band, sequencer, harmony tools and a companion book. |
+| [Drivers & peripheral interfaces](#drivers--peripheral-interfaces) | **[PyMOPanel](#pymopanel)** · [Linux GPIO/PWM · MPU6050 · FPGA UART/I²C · UDA1380 · AD9833 experiments](#other-peripheral-interfaces) |
+| [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and galvanometer mirror mounts with CI-rendered STL/PNG previews. |
+| [Linux scheduling, packaging & infrastructure](#linux-packaging--infrastructure) | **[linux-scheduling-lab](#linux-scheduling-lab)** — measured scheduling, RT & cgroup v2 experiments · **[gentoo-binhost](#gentoo-binhost)** — signed `x86-64-v3` binary packages · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
+| [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — C++11–26 & GCC 13–16 executable reference, Clang 23 cross-check, sanitizers and `-fanalyzer` CI. |
+| [Room & outdoor acoustics](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — indoor/outdoor acoustics simulator on PyPI: CAD/BIM & map scenes, ray tracing, wave/WAPE GPU solvers, binaural demos, portable scene packs and validation · [OpenSKP legacy `.skp` parser fix](#openskp--legacy-sketchup-anchored-text-parser-fix) |
+| [Music production](#music-production) | **[Ferrous Lineup](#ferrous-lineup)** — Rust music studio with a backing band, sequencer, harmony tools, audio-to-chord analysis and an English/Spanish book. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
-| [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — a satirical sprint-management browser game. |
+| [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — satirical sprint-management roguelike in React. |
 | [Project statistics](#project-statistics) | Language mix, source-repository activity, workflow presence and project counts. |
 
 ## FPGA & digital design
 
 ### [learning_fpga — from digital logic to a RISC-V CPU](https://github.com/naelolaiz/learning_fpga)
 
-A progressive collection of **paired VHDL and Verilog designs**, from clock enables, PWM and FIFOs to UART, I²C, displays and processor architecture.
+A progressive collection of **paired VHDL and Verilog designs**, from logic styles, clock enables, PWM, synchronous RAM/ROM and FIFOs to 7-segment and 640×480 VGA displays, serial buses, audio playback and processor architecture.
 
-- **CPU design:** tutorial CPUs implementing an RV32I subset, in single-cycle and five-stage pipelined forms, with forwarding, load-use stalls and branch flushing.
-- **Hardware/software integration:** a small SoC with memory-mapped UART, SIMD and FIR accelerators, plus a Python assembler and executable test programs.
-- **Verification:** assertion-based testbenches and a shared container build for local development and CI, which publishes netlists and waveforms.
+- **CPU design:** tutorial CPUs implementing an RV32I subset in both single-cycle and five-stage pipelined forms, with data forwarding, load-use hazard stalls and branch flushing.
+- **Hardware/software integration:** a runnable RV32I SoC pairing the CPU with memory-mapped UART TX/RX, a four-lane SIMD ALU and a 4-tap FIR filter accelerator, backed by a zero-dependency Python assembler (`rv32_asm`) and executable test programs.
+- **Verification:** self-checking assertion testbenches and a shared container build (`hdltools`) for local development and CI, which automatically synthesizes RTL schematics and renders waveform diagrams.
 
-[CPU & SoC walkthrough](https://github.com/naelolaiz/learning_fpga/tree/main/cpu) · [Timing notes](https://github.com/naelolaiz/learning_fpga/blob/main/docs/timing.md) · [Live CI gallery](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest)
+[CPU & SoC walkthrough](https://github.com/naelolaiz/learning_fpga/tree/main/cpu) · [RV32I assembler](https://github.com/naelolaiz/learning_fpga/tree/main/tools/rv32_asm) · [Timing notes](https://github.com/naelolaiz/learning_fpga/blob/main/docs/timing.md) · [Live CI gallery](https://github.com/naelolaiz/learning_fpga/tree/ci-gallery/latest)
 
 | `blink_led` · VHDL schematic | `blink_led` · Verilog schematic |
 | :---: | :---: |
@@ -66,7 +67,7 @@ A progressive collection of **paired VHDL and Verilog designs**, from clock enab
 
 ### [hdltools — HDL toolchain & waveform rendering](https://github.com/naelolaiz/hdltools)
 
-A containerized VHDL, Verilog and SystemVerilog toolchain combining **GHDL, Yosys with ghdl-yosys-plugin, Icarus Verilog, Verilator and slang**. Includes **netlistsvg** for RTL schematics and the **waveview** renderer, which turns VCD/FST/GHW traces into deterministic SVG/PNG diagrams without a desktop session, with configurable signal groups and time windows. Used by `learning_fpga` for simulation and CI artifacts.
+A containerized VHDL, Verilog and SystemVerilog toolchain combining **GHDL, Yosys with ghdl-yosys-plugin, Icarus Verilog, Verilator and slang**. Includes **netlistsvg** for RTL schematics and the **waveview** renderer, which turns VCD/FST/GHW traces into deterministic SVG/PNG diagrams without a desktop session, with sidecar YAML control over signal groups, formatting and time windows. Used by `learning_fpga` for simulation and CI artifacts.
 
 [Container & build targets](https://github.com/naelolaiz/hdltools) · [waveview documentation](https://github.com/naelolaiz/hdltools/tree/main/waveview)
 
@@ -78,12 +79,12 @@ Linux bring-up, root filesystems, cross-compilation and peripheral access across
 
 #### [Alpine Linux on ESP32-S31](https://github.com/naelolaiz/esp32s31-alpine)
 
-Bringing Alpine Linux to the **ESP32-S31 Function-CoreBoard-1**, using Espressif's Linux BSP and a custom kernel configuration.
+Bringing Alpine Linux (`riscv32`, musl, OpenRC, `apk`) to the **ESP32-S31 Function-CoreBoard-1**, using Espressif's Linux 6.18 BSP, custom kernel fragments and a dual-hart SMP/Wi-Fi stack.
 
-- **Working on hardware:** Linux 6.18 boots an ext4 root filesystem from USB, OpenRC starts a serial login, Ethernet gets an address through DHCP, and `apk` installs signed packages.
-- **Behind the boot:** documented BSP versions, kernel configuration fragments, a Buildroot overlay, and a dated journal of the bring-up. Pressing the reset button boots Alpine when the USB stick is present, with a Buildroot fallback when it is absent.
+- **Working on hardware:** Linux 6.18 boots an ext4 root filesystem from USB automatically on reset (falling back to Buildroot when unplugged), OpenRC starts a serial console and Dropbear SSH, Ethernet and native WPA2 Wi-Fi (including channels 12 and 13) connect at boot, the on-chip temperature sensor (`esp32s31_tsens`) is enabled via a runtime device-tree overlay, and `apk` installs signed packages over the network.
+- **Step-by-step engineering record:** a 24-step bring-up plan across six phases with reproducible guides, pinned BSP commits, kernel patches/fragments, Buildroot overlays and a dated hardware journal.
 
-[Source & setup](https://github.com/naelolaiz/esp32s31-alpine) · [Boot journal](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-boot-from-stick.md) · [Ethernet & package-install logs](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-network-apk.md)
+[Source & setup](https://github.com/naelolaiz/esp32s31-alpine) · [Steps & guides](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/steps/README.md) · [Boot from USB](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-boot-from-stick.md) · [Ethernet & apk](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-07-network-apk.md) · [Native Wi-Fi & SSH](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-11-alpine-wifi.md) · [Temperature sensor](https://github.com/naelolaiz/esp32s31-alpine/blob/main/docs/journal/2026-10-11-temperature-sensor.md)
 
 #### [linux — ESP32-S31 kernel work](https://github.com/naelolaiz/linux/tree/review/esp32s31-smp-wifi)
 
@@ -95,12 +96,12 @@ CI builds the XIP kernel and bootloader artifacts, plus matched radio artifacts 
 
 #### [Alpine Linux for 32-bit RISC-V](https://github.com/naelolaiz/alpine-riscv32)
 
-The distribution work behind the board bring-up: a compact **aports patch series**, cross toolchain and musl-based userspace for `rv32imac` / `ilp32` soft-float, kept independent of board-specific changes.
+The board-independent distribution work behind the bring-up: a 19-patch **`aports` series**, cross toolchain and musl-based userspace for `rv32imac_zicsr_zifencei` / `ilp32` soft-float, suitable for QEMU, LiteX or any RV32 Linux target.
 
-- **Bootstrap milestone:** cross-built Alpine's bootstrap package set, including `alpine-base`; boots to an OpenRC login in QEMU with working `apk` installs.
-- **Beyond cross-compilation:** native riscv32 package builds under qemu-user, including Nano and Dropbear, with SSH logins tested in the VM. GitHub Actions runs the cross and native package builds.
+- **Bootstrap & native packages:** cross-builds Alpine's bootstrap set (`alpine-base`, OpenRC, `apk`) and builds 450+ `riscv32` packages natively under `qemu-user`—including `python3` (3.14), `openssl`, `openssh`, `wpa_supplicant`, `iw`, `htop`, `vim`, `tmux`, `btop` and `lm-sensors`.
+- **Automated `apk` repository:** GitHub Actions builds incremental changes and publishes a signed `apk` repository on [GitHub Pages](https://naelolaiz.github.io/alpine-riscv32/) alongside versioned GitHub release archives for offline USB installation.
 
-[Patch series](https://github.com/naelolaiz/alpine-riscv32/tree/main/patches) · [Package status](https://github.com/naelolaiz/alpine-riscv32/blob/main/RISCV32.md) · [Build & boot guides](https://github.com/naelolaiz/alpine-riscv32/tree/main/docs/steps)
+[Patch series](https://github.com/naelolaiz/alpine-riscv32/tree/main/patches) · [Package status](https://github.com/naelolaiz/alpine-riscv32/blob/main/RISCV32.md) · [Build & boot guides](https://github.com/naelolaiz/alpine-riscv32/tree/main/docs/steps) · [Package CI & Pages repo](https://github.com/naelolaiz/alpine-riscv32/blob/main/docs/steps/23-package-ci.md)
 
 #### [luckfox_rockchip_testing](https://github.com/naelolaiz/luckfox_rockchip_testing)
 
@@ -172,11 +173,24 @@ Python driver for **Matrix Orbital GLK19264-7T-1U LCD/keypad panels**, with seri
 
 ## Linux packaging & infrastructure
 
+### [linux-scheduling-lab](https://github.com/naelolaiz/linux-scheduling-lab)
+
+Hands-on, measured **Linux scheduling experiments** for real-time and offline workloads. A **C++20** native engine executes real work—48 kHz mono PCM audio synthesis/filtering and 160×90 grayscale PGM frame generation/blurring—while a zero-dependency **Python standard-library** harness (`schedlab`) orchestrates runs and renders self-contained offline HTML reports (`report.html`).
+
+- **Policies, locks & resource controls:** compares `SCHED_OTHER` / nice levels, `SCHED_BATCH`, `SCHED_IDLE`, `SCHED_FIFO` / `SCHED_RR`, and `SCHED_DEADLINE` (`sched_setattr` admission and runtime/deadline/period budgets); measures priority inversion against `PTHREAD_PRIO_INHERIT` mutexes, page faults with prefaulting and `mlock`, CPU affinity, and delegated cgroup v2 CPU weight and quota.
+- **Threading & cross-system analysis:** includes a runnable C++20 `std::jthread` and bounded-queue audio pipeline with its publication and shutdown protocol, plus `doctor`, `replay` and `compare` commands to evaluate results across kernel preemption modes (`PREEMPT_DYNAMIC`, `PREEMPT_RT`), boots and machines.
+- **Portable & safe by default:** invokes Linux per-thread scheduler syscalls directly so both glibc and musl behave identically; runs unprivileged by default with Gentoo/OpenRC as a first-class setup, explicit `--allow-rt` opt-in, and independent native and Python watchdogs. CI validates GCC and Clang on x86-64 and arm64, static Alpine musl builds, and arm64/riscv64 cross-compilation.
+
+[Tutorial](https://github.com/naelolaiz/linux-scheduling-lab/blob/main/docs/TUTORIAL.md) · [Threading & C++20 pipeline](https://github.com/naelolaiz/linux-scheduling-lab/blob/main/docs/THREADING_AND_CODE.md) · [Kernels & hardware](https://github.com/naelolaiz/linux-scheduling-lab/blob/main/docs/KERNELS_AND_HARDWARE.md) · [Advanced experiments](https://github.com/naelolaiz/linux-scheduling-lab/blob/main/docs/ADVANCED.md) · [CI matrix](https://github.com/naelolaiz/linux-scheduling-lab/blob/main/.github/workflows/ci.yml)
+
 ### [gentoo-binhost](https://github.com/naelolaiz/gentoo-binhost)
 
-Signed binary packages for **Gentoo KDE Plasma / OpenRC / `~amd64`**, built through GitHub Actions. Tiered package builds, compiler caching and automatic follow-up runs handle long builds. Packages are published as release assets with an index on the `binhost` branch; clean-container install checks verify package signatures.
+Signed `.gpkg.tar` binary packages for **Gentoo `default/linux/amd64/23.0/desktop/plasma` (OpenRC, `~amd64`, `-march=x86-64-v3`)**, built inside fresh stage3 containers on GitHub Actions and layered above the official Gentoo `x86-64-v3` binhost via `binrepos.conf`.
 
-[Architecture](https://github.com/naelolaiz/gentoo-binhost/blob/main/docs/ARCHITECTURE.md) · [Build & publication workflow](https://github.com/naelolaiz/gentoo-binhost/blob/main/.github/workflows/build.yml)
+- **Tiered build pipeline:** builds `00-smoke`, `10-heavy` (LLVM, Clang, QtWebEngine, WebKitGTK, VTK), `20-desktop` (Plasma, Qt, KDE apps, audio production, CAD), `21-desktop-more`, `25-steam-runtime` (32-bit `abi_x86_32` libraries for Steam) and `30-kmod` (kernel and VirtualBox modules), with compiler caching and automatic follow-up runs when a job reaches its time window.
+- **Verified publication & maintenance:** a standard-library Python publisher uploads category release assets before updating the `Packages` index on the `binhost` branch, a clean-container consumer check verifies GPG signatures and binary installs, and a weekly workflow (`check-workarounds.yml`) tests whether profile workarounds can be retired.
+
+[Architecture](https://github.com/naelolaiz/gentoo-binhost/blob/main/docs/ARCHITECTURE.md) · [Usage guide](https://github.com/naelolaiz/gentoo-binhost/blob/main/docs/USING.md) · [Steam 32-bit runtime](https://github.com/naelolaiz/gentoo-binhost/blob/main/docs/STEAM.md) · [Build & publication workflow](https://github.com/naelolaiz/gentoo-binhost/blob/main/.github/workflows/build.yml) · [Workaround checks](https://github.com/naelolaiz/gentoo-binhost/blob/main/.github/workflows/check-workarounds.yml)
 
 ### [gitea-rootless-podman-kit](https://github.com/naelolaiz/gitea-rootless-podman-kit)
 
@@ -188,32 +202,33 @@ Scripts for **rootless Gitea deployment, encrypted backups and restoration**, us
 
 ### [gcc_updates](https://github.com/naelolaiz/gcc_updates)
 
-An executable **C++11–26 language and standard-library reference**, with compiler-version gates and examples of GCC extensions, changing defaults and diagnostics. CMake/CTest runs a GCC/Clang matrix on **amd64 and arm64**, alongside sanitizer and static-analysis examples. Expected-failure tests check diagnostic output as well as compilation and runtime behavior.
+An executable **C++11–26 language and standard-library reference**, with compiler-version gates, GCC extensions (`gccext_*`), measured toolchain default changes (`gccdef_*`) and curated per-release highlights for **GCC 13, 14, 15 and 16**.
 
-[Feature index](https://github.com/naelolaiz/gcc_updates/blob/main/features/TOPICS.md) · [Reference routes](https://github.com/naelolaiz/gcc_updates/blob/main/docs/reference-paths.md) · [Compiler CI matrix](https://github.com/naelolaiz/gcc_updates/blob/main/.github/workflows/ci.yml)
+- **Multi-compiler & multi-arch CI:** CMake/CTest runs the suite across **GCC 13–16 on both amd64 and arm64** (covering C++20 modules on GCC 15+ and C++26 contracts, reflection and library features on GCC 16), plus a **Clang 23 cross-check on amd64 and arm64** compiled against the same upstream libstdc++ 16.
+- **Sanitizers & static analysis:** repeats the test suite under **UBSan+ASan+LSan and TSan on both GCC 15 and Clang 23**, alongside deliberate-trip sanitizer demos and compile-time **`-fanalyzer` path-analysis tests on GCC 16** that assert exact diagnostic output.
+
+[Feature index](https://github.com/naelolaiz/gcc_updates/blob/main/features/TOPICS.md) · [Reference routes](https://github.com/naelolaiz/gcc_updates/blob/main/docs/reference-paths.md) · [GCC 13–16 release notes](https://github.com/naelolaiz/gcc_updates/blob/main/docs/gcc-changelogs.md) · [Sanitizers](https://github.com/naelolaiz/gcc_updates/blob/main/docs/sanitizers.md) · [Compiler CI matrix](https://github.com/naelolaiz/gcc_updates/blob/main/.github/workflows/ci.yml)
 
 ## Room acoustics & audio DSP
 
 ### [acoustic-spaces](https://github.com/naelolaiz/acoustic-spaces)
 
-Open-source room-acoustics simulator and auralisation toolkit in the spirit of CATT-Acoustic and ODEON, with a **Qt editor, command line, Python API and C++ core**. Load a 3D model or draw a room, place sources and listeners, compute impulse responses and listen to the result. Published on PyPI, with wheels for Linux, macOS and Windows on CPython 3.10–3.14:
+Open-source indoor and outdoor acoustics simulator and auralisation toolkit in the spirit of CATT-Acoustic and ODEON, with a **Qt editor, command line, Python API and C++ core**. Load a 3D model, draw a floor plan or build an outdoor terrain scene, place sources and listeners, compute impulse responses and listen to the result. Published on PyPI, with wheels for Linux, macOS and Windows on CPython 3.10–3.14:
 
 ```sh
 pip install "acoustic-spaces[viz,gui]"
 ```
 
-- **Rooms:** OBJ, DXF, glTF, STL, IFC, Collada and SketchUp imports or floor-plan drawing, a material database with CATT-Acoustic and ODEON libraries, doors between rooms, audience areas, directional, line, surface and array sources, and a leak finder for open models.
-- **Simulation:** ray-traced early reflections with edge diffraction, pressure-based summation at low frequencies, a stochastic late tail and a wave solver for the lowest bands, on CPU or GPU. ISO 3382-1 parameters, STI and echo criteria per source and listener, plus coverage maps across the audience.
-- **Spatial audio:** mono, binaural, Ambisonics (AmbiX) and loudspeaker impulse responses, offline and real-time convolution, head tracking and virtual walkthroughs rendered to video.
-- **Measurements & verification:** sine-sweep measurement of real rooms, JND-based comparison with the model and absorption fitting. A published report compares results against theory, pyroomacoustics and measured rooms, and documents known limitations.
+- **Indoor & outdoor scenes:** OBJ, DXF, glTF, STL, IFC, Collada and SketchUp imports or floor-plan drawing, CATT-Acoustic and ODEON material libraries, doors between rooms, audience areas, directional/line/surface and coherent element-by-element array sources, and a leak finder for open models—plus outdoor scenes with buildings, barriers, map terrain, finite and extended-reacting ground impedance, wind/temperature gradients, turbulence, vegetation and moving sources with Doppler shift.
+- **Simulation & remote GPU packs:** ray-traced early reflections with edge diffraction, pressure-based low-frequency summation, a stochastic late tail, a low-frequency wave solver, and an outdoor wide-angle parabolic equation (WAPE) solver on CPU or GPU (`wgpu`). Computes ISO 3382-1/3382-2 parameters, STI, echo criteria and multi-level audience coverage maps; `acoustic-spaces pack` bundles any scene into a self-contained `.zip` for headless Vulkan GPU containers on remote servers or cloud jobs.
+- **Spatial audio & binaural demos:** mono, binaural (with downloadable HRTF sets), Ambisonics (AmbiX) and loudspeaker impulse responses, offline and real-time convolution, head tracking and keyframed multi-mover video walkthroughs. Includes four scripted binaural headphone demos—Beethoven's 8th symphony from 61 anechoic tracks in the concert hall, choir and organ in the church, a band with its PA system in the stadium, and a lakeside concert in wind vs. still air—with a [YouTube playlist](https://www.youtube.com/playlist?list=PLWz5JDREfod8).
+- **Measurements & verification:** sine-sweep measurement of real rooms, ISO 3382-1 JND comparison and material absorption fitting. A published validation report compares indoor and outdoor results against modal/UTD/FFP theory, `pyroomacoustics`, the BRAS benchmark and Hannover outdoor propagation measurements.
 
-The 4.0.1 source release improves edge diffraction and reflection handling and updates the measured-room checks; the version available on PyPI may differ from the latest source release.
-
-[PyPI](https://pypi.org/project/acoustic-spaces/) · [Getting started](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/getting-started.md) · [Validation & known issues](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/validation.md) · [Examples](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/examples.md) · [Releases](https://github.com/naelolaiz/acoustic-spaces/releases) · [Changelog](https://github.com/naelolaiz/acoustic-spaces/blob/main/CHANGELOG.md)
+[PyPI](https://pypi.org/project/acoustic-spaces/) · [Getting started](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/getting-started.md) · [Outdoor scenes](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/outdoor.md) · [Demos](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/demos.md) · [Remote GPU runs](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/remote.md) · [Validation & known issues](https://github.com/naelolaiz/acoustic-spaces/blob/main/docs/validation.md) · [Releases](https://github.com/naelolaiz/acoustic-spaces/releases) · [Changelog](https://github.com/naelolaiz/acoustic-spaces/blob/main/CHANGELOG.md)
 
 [![Beethoven's 8th in the virtual concert hall: the orchestra on stage and a seat in the middle of the stalls, with the first reflections from a violin](https://raw.githubusercontent.com/naelolaiz/acoustic-spaces/main/docs/images/orchestra_video.png)](https://www.youtube.com/watch?v=c0-5F-iNhIE)
 
-*Beethoven's 8th symphony in the concert-hall example: 61 anechoic tracks, one per instrument, heard binaurally from the stalls. Select the image to watch the video.*
+*Beethoven's 8th symphony in the concert-hall example: 61 anechoic tracks, one per instrument, heard binaurally from the stalls. Select the image to watch the video, or browse the [full demo playlist](https://www.youtube.com/playlist?list=PLWz5JDREfod8).*
 
 <details>
 <summary>Acoustic simulation gallery — editor, visualisations and measurements</summary>
@@ -248,18 +263,24 @@ The 4.0.1 source release improves edge diffraction and reflection handling and u
 
 </details>
 
+### [OpenSKP — legacy SketchUp anchored-text parser fix](https://github.com/naelolaiz/openskp/tree/fix/legacy-anchored-text-instances)
+
+**Contribution branch:** binary-format parser fix across all five OpenSKP ports (**Python, TypeScript, .NET, Dart and C++**) for legacy (pre-2021) SketchUp `.skp` models containing `CText` labels anchored to entities. Reads the anchored entity reference and instance-path block after the text connection record so inline MFC path instances receive their store-map slots and outermost instances are preserved in the entity list. Discovered while validating `acoustic-spaces` against the 25 SketchUp 2015 models of the BRAS benchmark: the fix opens all four BRAS auditorium (`CR4`) models and restores the full root entity lists on the coupled-room (`CR1`) models across every port.
+
+[Contribution branch](https://github.com/naelolaiz/openskp/tree/fix/legacy-anchored-text-instances) · [Patch comparison](https://github.com/naelolaiz/openskp/compare/c0bbeaa62191d776ea25e979555c5d6c464d54fa...fix/legacy-anchored-text-instances) · [Upstream PR (iamahsanmehmood/openskp#473)](https://github.com/iamahsanmehmood/openskp/pull/473)
+
 ## Music production
 
 ### [Ferrous Lineup](https://github.com/naelolaiz/ferrous-lineup)
 
-An open-source **music studio and backing band written in Rust**. Enter a song's chords, choose a style and play it in different keys and tempos, or write and arrange parts by hand. Runs on Linux, macOS and Windows.
+An open-source **music studio and automatic backing band written in Rust** across five workspace crates (`lineup-core`, `lineup-audio`, `lineup-listen`, `lineup-video` and `lineup-app`). Enter a song's chords on the chord sheet, choose a style and play it in any key and tempo, or write and arrange parts by hand. Runs on Linux, macOS and Windows.
 
-- **Backing band & practice:** chord sheets, styles and rhythms drive piano, bass, drums and other instruments, with variations, an optional soloist, loops and a metronome. The library includes hundreds of demo songs.
-- **Writing & harmony:** a playlist, step sequencer, piano roll, style editor and mixer, with chord naming and suggestions, ear training, pitch-class sets, twelve-tone rows and micromodes.
-- **Audio & MIDI:** MIDI input and output, analysis of imported recordings, PDF lead sheets, and WAV, MIDI and MP4 export. Current source uses `.lineup` project files; releases provide builds for all three platforms.
-- **Companion book:** an online and downloadable guide to using the studio and building it in Rust.
+- **Backing band & practice:** chord sheets, **171+ harmony styles**, **107+ drum rhythms** and **300+ demo songs** drive piano, bass, drums, guitar, strings and organ—with intros, choruses, endings, A/B variations, swing, shots/pushes, an optional soloist, count-in, metronome, bar looping and part muting for live practice.
+- **Writing & harmony:** a multi-track playlist, step sequencer, piano roll, style editor and mixer, with Roman-numeral chord naming and voice-leading suggestions, ear training, pitch-class sets by Forte number, twelve-tone rows (P/R/I/RI) and Kröpfl micromodes.
+- **Audio, MIDI & export:** real-time synthesis and SoundFont playback (`rustysynth`), live MIDI In/Out (`midir`), audio-to-chord beat and key analysis of imported recordings (`lineup-listen`), headless CLI note tracing (`--trace`), PDF lead sheets, and WAV, MIDI and H.264/MP3 MP4 video export.
+- **Bilingual companion book & Rust course:** *Ferrous Lineup: Building a Music Studio in Rust* (and its Spanish edition, *Construyendo un estudio de música en Rust*), available online and as downloadable PDFs, documenting both the studio workflow and the step-by-step Rust architecture.
 
-[Book & application guide](https://naelolaiz.github.io/ferrous-lineup/) · [Build & run](https://github.com/naelolaiz/ferrous-lineup#build-and-run) · [Releases](https://github.com/naelolaiz/ferrous-lineup/releases) · [Project layout](https://github.com/naelolaiz/ferrous-lineup#project-layout)
+[Book (EN)](https://naelolaiz.github.io/ferrous-lineup/) · [PDF (EN)](https://naelolaiz.github.io/ferrous-lineup/ferrous-lineup-book.pdf) · [Libro (ES)](https://naelolaiz.github.io/ferrous-lineup/es/) · [PDF (ES)](https://naelolaiz.github.io/ferrous-lineup/es/ferrous-lineup-book-es.pdf) · [App tour](https://naelolaiz.github.io/ferrous-lineup/tour.html) · [Build & run](https://github.com/naelolaiz/ferrous-lineup#build-and-run) · [Releases](https://github.com/naelolaiz/ferrous-lineup/releases) · [Project layout](https://github.com/naelolaiz/ferrous-lineup#project-layout)
 
 | Studio & harmony keys | Chord sheet |
 | :---: | :---: |
@@ -269,12 +290,12 @@ An open-source **music studio and backing band written in Rust**. Enter a song's
 
 | Project | What it does | Stack |
 | :--- | :--- | :--- |
-| [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) | Audio A/B analysis: RMS, null-test residual and peak difference, through a Vamp plugin for hosts such as Sonic Visualiser, plus a Qt Quick interface. | C++17 · Qt Quick · CMake / CTest |
-| [Bluetooth instrument control](https://github.com/naelolaiz/JDY-31_PSG9080) | Python/Qt control of a PSG9080 signal generator, with logic-analyzer captures documenting the protocol. | Python · Qt · Bluetooth |
+| [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) | Audio A/B analysis: RMS, null-test residual and peak difference, through a Vamp plugin for hosts such as Sonic Visualiser, plus a Qt Quick interface and stdlib signal generator. | C++17 · Qt Quick · CMake / CTest |
+| [Bluetooth instrument control](https://github.com/naelolaiz/JDY-31_PSG9080) | Python/Qt control of a PSG9080 signal generator over Bluetooth serial, with logic-analyzer captures documenting the protocol. | Python · Qt · Bluetooth |
 
 ### [VoxPad](https://github.com/naelolaiz/voxpad)
 
-Audio and WhatsApp voice-message transcription through a **Python CLI, Qt desktop application and browser interface**. Whisper-based recognition runs locally by default; the CLI and desktop app also offer opt-in remote transcription that uploads audio.
+Local audio and WhatsApp voice-message transcription powered by Whisper (`faster-whisper`) through a **Python CLI, Qt desktop application and zero-install browser interface**. Accepts individual recordings (`.opus`, `.m4a`, `.ogg`, `.mp3`, `.wav`, `.flac`) or exported WhatsApp chat ZIPs/folders, matching voice notes to sender names and timestamps with optional word-level timestamps, keyword boosting and opt-in Hugging Face remote transcription.
 
 [Documentation](https://github.com/naelolaiz/voxpad/blob/main/README.md) · [Browser application](https://naelolaiz.github.io/voxpad/)
 
@@ -282,7 +303,7 @@ Audio and WhatsApp voice-message transcription through a **Python CLI, Qt deskto
 
 ### [Sprint to Nowhere](https://github.com/naelolaiz/sprint_to_nowhere)
 
-A satirical **sprint-management browser game** about backlog planning, interruptions, technical debt and burnout. Built with React, Vite and Tailwind CSS, with automated GitHub Pages deployment, and playable in English and Spanish. The goal is to complete at least ten sprints while keeping technical debt low.
+A satirical **sprint-management roguelike** about backlog planning, interruptions, technical debt and burnout. Built with React 19, Vite and Tailwind CSS, deployed to GitHub Pages, and playable in English and Spanish. The goal is to survive ten sprints while keeping technical debt and burnout under control.
 
 [Play online](https://naelolaiz.github.io/sprint_to_nowhere/) · [Game mechanics](https://github.com/naelolaiz/sprint_to_nowhere/blob/main/src/game/mechanics.js)
 
