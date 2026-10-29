@@ -31,7 +31,7 @@ A collection of open-source tools, simulations and hardware experiments, from di
 | [3D printing & mechanical design](#3d-printing--mechanical-design) | [3d_models](#3d_models) — OpenSCAD enclosures, motor supports and galvanometer mirror mounts with CI-rendered STL/PNG previews. |
 | [Linux scheduling, packaging & infrastructure](#linux-packaging--infrastructure) | **[linux-scheduling-lab](#linux-scheduling-lab)** — measured scheduling, RT & cgroup v2 experiments · **[gentoo-binhost](#gentoo-binhost)** — signed `x86-64-v3` binary packages · [gitea-rootless-podman-kit](#gitea-rootless-podman-kit) |
 | [C++ & compiler experiments](#c--compiler-experiments) | **[gcc_updates](#gcc_updates)** — C++11–26 & GCC 13–16 executable reference, Clang 23 cross-check, sanitizers and `-fanalyzer` CI. |
-| [Room & outdoor acoustics](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — indoor/outdoor acoustics simulator on PyPI: CAD/BIM & map scenes, ray tracing, wave/WAPE GPU solvers, binaural demos, portable scene packs and validation. |
+| [Room & outdoor acoustics](#room-acoustics--audio-dsp) | **[acoustic-spaces](#acoustic-spaces)** — indoor/outdoor acoustics simulator on PyPI: CAD/BIM & map scenes, ray tracing, wave/WAPE GPU solvers, binaural demos, portable scene packs and validation · [OpenSKP legacy `.skp` parser fix](#openskp--legacy-sketchup-anchored-text-parser-fix) |
 | [Music production](#music-production) | **[Ferrous Lineup](#ferrous-lineup)** — Rust music studio with a backing band, sequencer, harmony tools, audio-to-chord analysis and an English/Spanish book. |
 | [Audio & instrument control](#audio--instrument-control) | [WaveDiff](https://github.com/naelolaiz/vamp_wavediff) · [VoxPad](#voxpad) · [PSG9080 control](https://github.com/naelolaiz/JDY-31_PSG9080) |
 | [Games & simulations](#games--simulations) | **[Sprint to Nowhere](#sprint-to-nowhere)** — satirical sprint-management roguelike in React. |
@@ -262,6 +262,12 @@ pip install "acoustic-spaces[viz,gui]"
 *Measured-response example: BRAS CR2, LS1→MP1, from the [BRAS benchmark](https://doi.org/10.14279/depositonce-6726.3), CC BY-SA 4.0.*
 
 </details>
+
+### [OpenSKP — legacy SketchUp anchored-text parser fix](https://github.com/naelolaiz/openskp/tree/fix/legacy-anchored-text-instances)
+
+**Contribution branch:** binary-format parser fix across all five OpenSKP ports (**Python, TypeScript, .NET, Dart and C++**) for legacy (pre-2021) SketchUp `.skp` models containing `CText` labels anchored to entities. Reads the anchored entity reference and instance-path block after the text connection record so inline MFC path instances receive their store-map slots and outermost instances are preserved in the entity list. Discovered while validating `acoustic-spaces` against the 25 SketchUp 2015 models of the BRAS benchmark: the fix opens all four BRAS auditorium (`CR4`) models and restores the full root entity lists on the coupled-room (`CR1`) models across every port.
+
+[Contribution branch](https://github.com/naelolaiz/openskp/tree/fix/legacy-anchored-text-instances) · [Patch comparison](https://github.com/naelolaiz/openskp/compare/c0bbeaa62191d776ea25e979555c5d6c464d54fa...fix/legacy-anchored-text-instances) · [Upstream PR (iamahsanmehmood/openskp#473)](https://github.com/iamahsanmehmood/openskp/pull/473)
 
 ## Music production
 
